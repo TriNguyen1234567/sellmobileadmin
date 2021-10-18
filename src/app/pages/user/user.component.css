@@ -1,0 +1,16 @@
+.table_monthly{
+    width: 90%;
+}
+
+.form-check-input-monthly 
+    .ng-pristine .ng-valid .ng-touched { 
+    width: 25px !important; 
+    height: 25px !important; 
+}
+.ui-dropdown-label-container{
+    height: 35px !important;
+}
+
+.ui-dropdown{
+    height: 38px !important;
+}

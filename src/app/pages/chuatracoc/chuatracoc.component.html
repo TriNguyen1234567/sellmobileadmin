@@ -1,0 +1,96 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title">Danh Sách KH Chưa Trả Cọc</h4>
+          <br />
+          <div style="text-align: left;margin-top: 15px;">
+            <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL" (click)="exportExcel()"
+              style="margin-right: 15px; ; margin-bottom: 15px;" class="ui-button-success"></button>
+            <input pInputText type="text" placeholder="Mã WiFi"
+              style="margin-right: 15px; height: 30px; margin-bottom: 15px;"
+              (input)="tt.filter($event.target.value, 'mawifi', 'contains')">
+
+            <input pInputText type="text" placeholder="Họ Tên"
+              style="margin-right: 15px; height: 30px; margin-bottom: 15px;"
+              (input)="tt.filter($event.target.value, 'hoten', 'contains')">
+
+          </div>
+        </div>
+        <div class=" card-body">
+          <div class=" table-responsive">
+            <p-table #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
+              [tableStyle]="{'table-layout':'auto'}">
+
+              <ng-template pTemplate="header" let-columns class=" text-primary">
+                <tr>
+                  <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}">
+                    {{col.header}}
+                  </th>
+                  <th></th>
+                  <th></th>
+                </tr>
+              </ng-template>
+              <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing" let-ri="rowIndex">
+                <tr [pEditableRow]="rowData">
+                  <td *ngFor="let col of columns">
+                    <ng-container *ngIf="[col.field]=='ngaytra'">
+                      {{rowData[col.field] | date: 'dd/MM/yyyy'}}
+                    </ng-container>
+
+                    <ng-container *ngIf="[col.field]!='facebook' && [col.field]!='ngaytra' ">
+                      {{rowData[col.field]}}
+                    </ng-container>
+
+                    <ng-container *ngIf="[col.field]=='facebook'">
+                      <a class=" fab fa-facebook" href="{{rowData[col.field]}}" target="_blank"
+                        style="font-size:20px;text-align: center;"> </a>
+
+                    </ng-container>
+                  </td>
+                  <td style="text-align:center">
+                    <a (click)="selectNetWithButton(rowData)" routerLink="/user" [state]="(rowData)"><i
+                        class="fas fa-address-card" style="font-size:20px"></i></a>
+                  </td>
+                  <td style="text-align:center">
+                    <button pButton type="button" pInitEditableRow icon="pi pi-pencil" class="ui-button-info"
+                      (click)="onRowEditInit(rowData)" style="width: 20px !important;height: 20px !important;"></button>
+
+                  </td>
+
+                </tr>
+              </ng-template>
+            </p-table>
+            <div [formGroup]="userform">
+              <p-dialog header="{{editmawifi}} - {{edithoten}}" [(visible)]="displayDialog" [focusOnShow]="false"
+                [responsive]="true" showEffect="fade" [modal]="true" [style]="{width: '400px'}">
+
+                <div style="margin-top: 10px;">
+                  <label>Trạng Thái KH</label>
+
+                  <div>
+                    <p-dropdown [options]="trangthaikh" formControlName="trangthaikhdd"></p-dropdown>
+                  </div>
+                </div>
+                <br />
+                <br />
+                <br />
+                <p-footer>
+                  <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+                    <button type="button" pButton (click)="save()" label="Save"></button>
+                    <button type="button" pButton (click)="cancel()" label="Cancel"
+                      style="background:rgba(224, 46, 22, 0.6)"></button>
+                  </div>
+                </p-footer>
+
+              </p-dialog>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

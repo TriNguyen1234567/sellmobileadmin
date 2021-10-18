@@ -1,0 +1,143 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <h4 class=" card-title">DS CỘNG TÁC VIÊN</h4>
+                    <br />
+                    <div>
+                        <button type="button" pButton icon="fa fa-plus" (click)="showDialogToAdd()"
+                            label="Add"></button>
+
+
+                        <button type="button" pButton icon="pi pi-file-excel" iconPos="left" label="EXCEL"
+                            (click)="exportExcel()" style="margin-left: 15px; margin-bottom: 15px; margin-right: 15px;"
+                            class="ui-button-success"></button>
+
+                        <input pInputText type="text" placeholder="Họ tên"
+                            style="margin-right: 15px; height: 30px; margin-bottom: 15px; width: 120px;"
+                            (input)="tt.filter($event.target.value, 'hoten', 'contains')">
+                        
+
+                    </div>
+                </div>
+                <div class=" card-body">
+
+                    <div class=" table-responsive">
+
+                        <p-table #tt [columns]="cols" [value]="data" [paginator]="true" [rows]="20"
+                            [tableStyle]="{'table-layout':'auto'}" editMode="row" dataKey="mawifi">
+
+                            <ng-template pTemplate="header" let-columns class=" text-primary">
+
+                                <tr>
+                                    <th></th>
+                                    <th *ngFor="let col of columns" [ngStyle]="{'width': col.width}"
+                                        [pSortableColumn]="col.field">
+                                        {{col.header}}
+
+
+                                    </th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-editing="editing"
+                                let-ri="rowIndex" let-i="rowIndex">
+                                <tr [pEditableRow]="rowData">
+                                    <td>{{i+1}}</td>
+
+                                    <td>
+
+
+                                        {{rowData.hoten}}
+
+                                    </td>
+                                    <td>
+
+
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText type="text" [(ngModel)]="rowData.facebook" required>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.facebook}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText type="text" [(ngModel)]="rowData.sdt" required>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.sdt}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                    <td>
+                                        <p-cellEditor>
+                                            <ng-template pTemplate="input">
+                                                <input pInputText type="text" [(ngModel)]="rowData.diachi" required>
+                                            </ng-template>
+                                            <ng-template pTemplate="output">
+                                                {{rowData.diachi}}
+                                            </ng-template>
+                                        </p-cellEditor>
+                                    </td>
+                                   
+                                    <td style="text-align:center">
+                                        <button *ngIf="!editing" pButton type="button" pInitEditableRow
+                                            icon="pi pi-pencil" class="ui-button-info" (click)="onRowEditInit(rowData)"
+                                            style="width: 20px !important;height: 20px !important;"></button>
+                                        <button *ngIf="editing" pButton type="button" pSaveEditableRow
+                                            icon="pi pi-check" class="ui-button-success"
+                                            (click)="onRowEditSave(rowData)"
+                                            style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
+                                        <button *ngIf="editing" pButton type="button" pCancelEditableRow
+                                            icon="pi pi-times" class="ui-button-danger"
+                                            (click)="onRowEditCancel(rowData,ri)"
+                                            style="width: 20px !important;height: 20px !important; margin-right: 4px;"></button>
+                                    </td>
+                                    <td style="text-align:center">
+                                        <button pButton type="button" pCancelEditableRow class="ui-button-danger"
+                                            (click)="onRowDelete(rowData,ri)"
+                                            style="width: 35px !important;height: 20px !important; margin-right: 4px;">Del</button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+
+
+                    </div>
+                </div>
+            </div>
+
+            <p-dialog header="Cộng tác viên" [(visible)]="displayDialog" [focusOnShow]="false" [responsive]="true"
+                showEffect="fade" [modal]="true"
+                style="display: block; width: 300px; visibility: visible; left: 49.5px; top: 227px; z-index: 1004;"
+                [style]="{width: '400px'}" [formGroup]="congtacvienform">
+
+                <label style="margin-top: 10px;"> Họ Tên</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Họ Tên" type="text" formControlName="hoten" />
+                <label style="margin-top: 10px;"> Facebook</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Facebook" type="text" formControlName="facebook" />
+                <label style="margin-top: 10px;"> Số điện thoại</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Số điện thoại" type="text" formControlName="sdt" />
+                <label style="margin-top: 10px;"> Địa chỉ</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Địa chỉ" type="text" formControlName="diachi" />
+                <p-footer>
+                    <div class="ui-dialog-buttonpane ui-helper-clearfix">
+
+                        <button type="button" pButton (click)="save()" label="Save"></button>
+                        <button type="button" pButton (click)="cancel()" label="Cancel"
+                            style="background:rgba(224, 46, 22, 0.6)"></button>
+                    </div>
+                </p-footer>
+
+            </p-dialog>
+        </div>
+
+    </div>
+</div>

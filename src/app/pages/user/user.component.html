@@ -1,0 +1,84 @@
+<div class=" content">
+
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" title" style="color: orangered; font-weight: bold;">SẢN PHẨM</h4>
+        </div>
+        <div class=" card-body">
+
+          <div class=" row" *ngIf="this.editData.id == null">
+            <div class=" col-md-5 pr-md-1">
+              <div class=" form-group">
+                <label> Danh mục sản phẩm</label> <label style="color: #ec250d;"> *</label>
+                <p-dropdown [options]="categories" (onChange)="onChangeCategory($event.value)"
+                  [(ngModel)]="selectedCategory" optionLabel="label" optionValue="value"></p-dropdown><br />
+              </div>
+            </div>
+          </div>
+          <div class=" row" *ngIf="this.editData.id != null" [formGroup]="danhmucform">
+            <div class=" col-md-5 pr-md-1">
+              <div class=" form-group">
+                <label> Danh mục sản phẩm</label> <label style="color: #ec250d;"> *</label>
+                <p-dropdown [options]="categories" (onChange)="onChangeCategory($event.value)"
+                  formControlName="danhmucspform"></p-dropdown><br />
+              </div>
+            </div>
+          </div>
+          <div class=" row">
+            <div class=" col-md-6 pr-md-1">
+              <div class=" form-group">
+                <label> Tên sản phẩm </label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Name" type="text" [(ngModel)]="name" />
+              </div>
+            </div>
+            <div class=" col-md-6 pr-md-1">
+              <div class=" form-group">
+                <label> Nhà cung cấp</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Summary" [(ngModel)]="summary" type="text" />
+              </div>
+            </div>
+          </div>
+        
+
+
+          <div class=" row">
+            <div class=" col-md-4 pr-md-1">
+              <div class=" form-group">
+                <label> Giá </label>
+                <input class=" form-control" placeholder="Price" [(ngModel)]="price" type="text" />
+              </div>
+            </div>
+            <div class=" col-md-4 pr-md-1">
+              <div class=" form-group">
+                <label> Giá mới </label>
+                <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi" type="text" />
+              </div>
+            </div>
+            <div class=" col-md-4 pr-md-1">
+              <div class=" form-group">
+                <label> Thứ tự </label>
+                <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no" type="number" min="1" max="5" />
+              </div>
+            </div>
+            
+
+          </div>
+      
+          <!--  -->
+
+   
+        </div>
+        <div class=" card-footer" [hidden]="isDisable">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="submit()" [hidden]="isDisable">Lưu</button>
+
+          <button class=" btn " style="background:rgba(224, 46, 22, 0.6)" (click)="cancel()"
+            [hidden]="isDisable">Hủy</button>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>

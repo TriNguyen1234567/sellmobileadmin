@@ -1,0 +1,16 @@
+<div class="background">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+        <div class="container">
+            <input type="text" placeholder="Username" name="uname" class="form-control" formControlName="username" required>
+        </div>
+        <div class="container">
+            <input type="password" placeholder="Password" name="psw" class="form-control" formControlName="password" required>
+        </div>
+        <div class="container">
+            <button type="submit">Login</button>
+        </div>
+        <div class="container" style="color:red;">
+            {{errormes}}
+        </div>
+    </form>
+</div>

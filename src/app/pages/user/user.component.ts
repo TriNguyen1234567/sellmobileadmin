@@ -18,6 +18,7 @@ interface Category {
 
 export class UserComponent implements OnInit {
 
+  them = 1
   editData: any
   deviceUpdate = []
   danhmucform: FormGroup | any;
@@ -25,11 +26,41 @@ export class UserComponent implements OnInit {
   selectedCategory: any;
   // selectedCategory: string = 'air_pods_new';
   category = 'air_pods_new';
+
   summary = '';
+  summary2 = '';
+  summary3 = '';
+  summary4 = '';
+  summary5 = '';
+  summary6 = '';
+  summary7 = '';
+
   no = null;
+  no2 = null;
+  no3 = null;
+  no4 = null;
+  no5 = null;
+  no6 = null;
+  no7 = null;
+
   details = '';
+
   price = '';
-  giamoi='';
+  price2 = '';
+  price3 = '';
+  price4 = '';
+  price5 = '';
+  price6 = '';
+  price7 = '';
+
+  giamoi = '';
+  giamoi2 = '';
+  giamoi3 = '';
+  giamoi4 = '';
+  giamoi5 = '';
+  giamoi6 = '';
+  giamoi7 = '';
+
   image = '';
   video = '';
   videoPath = '';
@@ -39,38 +70,15 @@ export class UserComponent implements OnInit {
   guarantee = '';
   email = '';
   device = [];
+  device2 = [];
+  device3 = [];
+  device4 = [];
+  device5 = [];
+  device6 = [];
+  device7 = [];
   arrayImage = [];
   arrayVideo = ''
-  image1 = '';
-  image1Path = '';
-  image1PathName = '';
-  image2 = '';
-  image2Path = '';
-  image2PathName = '';
-  image3 = '';
-  image3Path = '';
-  image3PathName = '';
-  image4 = '';
-  image4Path = '';
-  image4PathName = '';
-  image5 = '';
-  image5Path = '';
-  image5PathName = '';
-  image6 = '';
-  image6Path = '';
-  image6PathName = '';
-  image7 = '';
-  image7Path = '';
-  image7PathName = '';
-  image8 = '';
-  image8Path = '';
-  image8PathName = '';
-  image9 = '';
-  image9Path = '';
-  image9PathName = '';
-  image10 = '';
-  image10Path = '';
-  image10PathName = '';
+
 
   uploadedFiles: any[] = [];
   fileToUpload: File = null;
@@ -103,13 +111,13 @@ export class UserComponent implements OnInit {
 
   }
 
- 
+
 
   ngOnInit() {
 
     console.log('this.editData', this.editData)
     if (this.editData.id) {
-      this.danhmucform.controls['danhmucspform'].value=this.editData.category
+      this.danhmucform.controls['danhmucspform'].value = this.editData.category
       this.selectedCategory = this.editData.category
       this.category = this.editData.category
       this.name = this.editData.name
@@ -119,44 +127,6 @@ export class UserComponent implements OnInit {
       this.no = this.editData.no
       this.price = this.editData.price
       this.giamoi = this.editData.giamoi
-      // this.guarantee = this.editData.guarantee
-      // this.details = this.editData.details
-      // this.video = this.editData.video
-      // this.image1 = this.editData.image1
-      // this.image1Path = 'http://tonylemobile.com' + this.image1
-      // this.videoPath = 'http://tonylemobile.com' + this.video
-      // this.image1PathName = this.image1Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.videoPathName = this.videoPath.replace('http://tonylemobile.com./assets/images/', '')
-      // console.log(this.image1Path)
-      // this.image2 = this.editData.image2
-      // this.image2Path = 'http://tonylemobile.com' + this.image2
-      // console.log(this.image2, this.image1Path)
-      // this.image2PathName = this.image2Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image3 = this.editData.image3
-      // this.image3Path = 'http://tonylemobile.com' + this.image3
-      // this.image3PathName = this.image3Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image4 = this.editData.image4
-      // this.image4Path = 'http://tonylemobile.com' + this.image4
-      // this.image4PathName = this.image4Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image5 = this.editData.image5
-      // console.log('this.image5', this.image5)
-      // this.image5Path = 'http://tonylemobile.com' + this.image5
-      // this.image5PathName = this.image5Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image6 = this.editData.image6
-      // this.image6Path = 'http://tonylemobile.com' + this.image6
-      // this.image6PathName = this.image6Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image7 = this.editData.image7
-      // this.image7Path = 'http://tonylemobile.com' + this.image7
-      // this.image7PathName = this.image6Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image8 = this.editData.image8
-      // this.image8Path = 'http://tonylemobile.com' + this.image8
-      // this.image8PathName = this.image8Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image9 = this.editData.image9
-      // this.image9Path = 'http://tonylemobile.com' + this.image9
-      // this.image9PathName = this.image9Path.replace('http://tonylemobile.com./assets/images/', '')
-      // this.image10 = this.editData.image10
-      // this.image10Path = 'http://tonylemobile.com' + this.image10
-      // this.image10PathName = this.image10Path.replace('http://tonylemobile.com./assets/images/', '')
     }
     else {
       this.selectedCategory = 'air_pods_new';
@@ -179,79 +149,14 @@ export class UserComponent implements OnInit {
   submit() {
 
     if (this.editData.id) {
-      // if (this.arrayImage.length > 0) {
-      //   if (this.image1) this.arrayImage.push(this.image1.replace('./assets/images/', ''))
-      //   if (this.image2) this.arrayImage.push(this.image2.replace('./assets/images/', ''))
-      //   if (this.image3) this.arrayImage.push(this.image3.replace('./assets/images/', ''))
-      //   if (this.image4) this.arrayImage.push(this.image4.replace('./assets/images/', ''))
-      //   if (this.image5) this.arrayImage.push(this.image5.replace('./assets/images/', ''))
-      //   if (this.image6) this.arrayImage.push(this.image6.replace('./assets/images/', ''))
-      //   if (this.image7) this.arrayImage.push(this.image7.replace('./assets/images/', ''))
-      //   if (this.image8) this.arrayImage.push(this.image8.replace('./assets/images/', ''))
-      //   if (this.image9) this.arrayImage.push(this.image9.replace('./assets/images/', ''))
-      //   if (this.image10) this.arrayImage.push(this.image10.replace('./assets/images/', ''))
-
-
-
-      //   if (this.arrayImage[0]) {
-      //     this.image1 = './assets/images/' + this.arrayImage[0]
-      //   }
-      //   else this.image1 = null
-
-      //   if (this.arrayImage[1]) {
-      //     this.image2 = './assets/images/' + this.arrayImage[1]
-      //   }
-      //   else this.image2 = null
-
-      //   if (this.arrayImage[2]) {
-      //     this.image3 = './assets/images/' + this.arrayImage[2]
-      //   }
-      //   else this.image3 = null
-
-      //   if (this.arrayImage[3]) {
-      //     this.image4 = './assets/images/' + this.arrayImage[3]
-      //   }
-      //   else this.image4 = null
-
-      //   if (this.arrayImage[4]) {
-      //     this.image5 = './assets/images/' + this.arrayImage[4]
-      //   }
-      //   else this.image5 = null
-
-      //   if (this.arrayImage[5]) {
-      //     this.image6 = './assets/images/' + this.arrayImage[5]
-      //   }
-      //   else this.image6 = null
-
-      //   if (this.arrayImage[6]) {
-      //     this.image7 = './assets/images/' + this.arrayImage[6]
-      //   }
-      //   else this.image7 = null
-
-      //   if (this.arrayImage[7]) {
-      //     this.image8 = './assets/images/' + this.arrayImage[7]
-      //   }
-      //   else this.image8 = null
-
-      //   if (this.arrayImage[8]) {
-      //     this.image9 = './assets/images/' + this.arrayImage[8]
-      //   }
-      //   else this.image9 = null
-
-      //   if (this.arrayImage[9]) {
-      //     this.image10 = './assets/images/' + this.arrayImage[9]
-      //   }
-      //   else this.image10 = null
-
-      // }
 
       this.deviceUpdate = [this.danhmucform.get('danhmucspform').value,
       this.summary,
       // this.details,
-      this.price, 
-      // this.image1, this.image2, this.video, this.image3, this.image4, this.image5, this.image6, 
+      this.price,
+
       this.name,
-      // this.remarks, this.guarantee, null,this.editData.active,this.image7,this.image8,this.image9,this.image10,
+
       this.no, this.giamoi, this.editData.id
       ]
       this.networkserviceService.updateAllDevices(this.deviceUpdate).subscribe(
@@ -268,99 +173,216 @@ export class UserComponent implements OnInit {
         })
     }
     else {
-      // this.arrayImage = this.image.split(',')
-      // if (this.arrayImage[0]) {
-      //   this.image1 = './assets/images/' + this.arrayImage[0]
-      // }
-      // else this.image1 = null
+      if (this.summary != '') {
+        console.log(this.arrayImage)
+        this.device = [
+          this.category,
+          this.summary,
+          // this.details,
+          this.price,
+          this.name,
+          this.no,
+          // true,
+          this.giamoi
+        ]
+        console.log(this.device)
 
-      // if (this.arrayImage[1]) {
-      //   this.image2 = './assets/images/' + this.arrayImage[1]
-      // }
-      // else this.image2 = null
+        this.networkserviceService.postAllDevice(this.device).subscribe(
+          data => {
+            alert("Lưu Thành Công");
 
-      // if (this.arrayImage[2]) {
-      //   this.image3 = './assets/images/' + this.arrayImage[2]
-      // }
-      // else this.image3 = null
+            console.log("POST Request is successful ", data);
+          
 
-      // if (this.arrayImage[3]) {
-      //   this.image4 = './assets/images/' + this.arrayImage[3]
-      // }
-      // else this.image4 = null
+          },
+          error => {
 
-      // if (this.arrayImage[4]) {
-      //   this.image5 = './assets/images/' + this.arrayImage[4]
-      // }
-      // else this.image5 = null
+            console.log("Error", error);
 
-      // if (this.arrayImage[5]) {
-      //   this.image6 = './assets/images/' + this.arrayImage[5]
-      // }
-      // else this.image6 = null
+          })
+      }
 
-      // if (this.arrayImage[6]) {
-      //   this.image7 = './assets/images/' + this.arrayImage[6]
-      // }
-      // else this.image7 = null
 
-      // if (this.arrayImage[7]) {
-      //   this.image8 = './assets/images/' + this.arrayImage[7]
-      // }
-      // else this.image8 = null
+      if (this.summary2 != '') {
+        this.device2 = [
+          this.category,
+          this.summary2,
+          // this.details,
+          this.price2,
+          this.name,
+          this.no2,
+          // true,
+          this.giamoi2
+        ]
+        console.log(this.device2)
 
-      // if (this.arrayImage[8]) {
-      //   this.image9 = './assets/images/' + this.arrayImage[8]
-      // }
-      // else this.image9 = null
+        this.networkserviceService.postAllDevice(this.device2).subscribe(
+          data => {
+            alert("Lưu Thành Công");
 
-      // if (this.arrayImage[9]) {
-      //   this.image10 = './assets/images/' + this.arrayImage[9]
-      // }
-      // else this.image10 = null
+            console.log("POST Request is successful ", data);
+           
 
-      console.log(this.arrayImage)
-      this.device = [
-        this.category,
-        this.summary,
-        // this.details,
-        this.price,
-        // this.image1,
-        // this.image2,
-        // this.video,
-        // this.image3,
-        // this.image4,
-        // this.image5,
-        // this.image6,
-        // DEFAULT,
-        this.name,
-        // this.remarks,
-        // this.guarantee,
-        // this.email,
-        // true,
-        // this.image7,
-        // this.image8,
-        // this.image9,
-        // this.image10,
-         this.no,
-        // true,
-        this.giamoi
-      ]
-      console.log(this.device)
+          },
+          error => {
 
-      this.networkserviceService.postAllDevice(this.device).subscribe(
-        data => {
-          alert("Lưu Thành Công");
+            console.log("Error", error);
 
-          console.log("POST Request is successful ", data);
-          this.router.navigateByUrl('dashboard')
+          })
+      }
 
-        },
-        error => {
+      if (this.summary3 != '') {
+        this.device3 = [
+          this.category,
+          this.summary3,
+          // this.details,
+          this.price3,
+          this.name,
+          this.no3,
+          // true,
+          this.giamoi3
+        ]
+        console.log(this.device3)
 
-          console.log("Error", error);
+        this.networkserviceService.postAllDevice(this.device3).subscribe(
+          data => {
+            alert("Lưu Thành Công");
 
-        })
+            console.log("POST Request is successful ", data);
+          
+
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+
+      if (this.summary4 != '') {
+        this.device4 = [
+          this.category,
+          this.summary4,
+          // this.details,
+          this.price4,
+          this.name,
+          this.no4,
+          // true,
+          this.giamoi4
+        ]
+        console.log(this.device4)
+
+        this.networkserviceService.postAllDevice(this.device4).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+
+            console.log("POST Request is successful ", data);
+     
+
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+
+
+      if (this.summary5 != '') {
+        this.device5 = [
+          this.category,
+          this.summary5,
+          // this.details,
+          this.price5,
+          this.name,
+          this.no5,
+          // true,
+          this.giamoi5
+        ]
+        console.log(this.device5)
+
+        this.networkserviceService.postAllDevice(this.device5).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+
+            console.log("POST Request is successful ", data);
+          
+
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+
+
+      if (this.summary6 != '') {
+        this.device6 = [
+          this.category,
+          this.summary6,
+          // this.details,
+          this.price6,
+          this.name,
+          this.no6,
+          // true,
+          this.giamoi6
+        ]
+        console.log(this.device6)
+
+        this.networkserviceService.postAllDevice(this.device6).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+
+            console.log("POST Request is successful ", data);
+           
+
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+
+
+      if (this.summary7 != '') {
+        this.device7 = [
+          this.category,
+          this.summary7,
+          // this.details,
+          this.price7,
+          this.name,
+          this.no7,
+          // true,
+          this.giamoi7
+        ]
+        console.log(this.device7)
+
+        this.networkserviceService.postAllDevice(this.device7).subscribe(
+          data => {
+            alert("Lưu Thành Công");
+
+            console.log("POST Request is successful ", data);
+           
+
+          },
+          error => {
+
+            console.log("Error", error);
+
+          })
+      }
+
+
+     
+
+
+      
+
+
+      
+
     }
 
   }
@@ -428,40 +450,9 @@ export class UserComponent implements OnInit {
     this.video = null
   }
 
-  deleteImage10(image10Path) {
-    this.image10 = null
-  }
 
-  deleteImage9(image9Path) {
-    this.image9 = null
-  }
-
-  deleteImage8(image8Path) {
-    this.image8 = null
-  }
-
-  deleteImage7(image7Path) {
-    this.image7 = null
-  }
-
-  deleteImage6(image6Path) {
-    this.image6 = null
-  }
-
-  deleteImage5(image5Path) {
-    this.image5 = null
-  }
-  deleteImage4(image4Path) {
-    this.image4 = null
-  }
-  deleteImage3(image3Path) {
-    this.image3 = null
-  }
-  deleteImage2(image2Path) {
-    this.image2 = null
-  }
-  deleteImage1(image1Path) {
-    this.image1 = null
+  themnhacungcap() {
+    this.them = this.them + 1
   }
 
 }

@@ -33,15 +33,23 @@
                 <input class=" form-control" placeholder="Name" type="text" [(ngModel)]="name" />
               </div>
             </div>
-            <div class=" col-md-6 pr-md-1">
+            <!-- <div class=" col-md-6 pr-md-1">
               <div class=" form-group">
                 <label> Nhà cung cấp</label> <label style="color: #ec250d;"> *</label>
                 <input class=" form-control" placeholder="Summary" [(ngModel)]="summary" type="text" />
               </div>
+            </div> -->
+          </div>
+          <br />
+          <br />
+          <div class="row">
+            <div class=" col-md-6 pr-md-1">
+              <div class=" form-group">
+                <label> Nhà cung cấp 1</label> <label style="color: #ec250d;"> *</label>
+                <input class=" form-control" placeholder="Summary" [(ngModel)]="summary" type="text" />
+              </div>
             </div>
           </div>
-        
-
 
           <div class=" row">
             <div class=" col-md-4 pr-md-1">
@@ -62,14 +70,249 @@
                 <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no" type="number" min="1" max="5" />
               </div>
             </div>
-            
+
 
           </div>
-      
-          <!--  -->
 
-   
+          <!-------------------  -->
+          <div *ngIf="them >= 2">
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 2</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary2" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price2" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi2" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no2" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          <!------------------------------>
+
+          <div *ngIf="them >= 3">
+
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 3</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary3" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price3" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi3" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no3" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+
+          <!------------------------------>
+          <div *ngIf="them >= 4">
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 4</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary4" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price4" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi4" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no4" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+          </div>
+
+          <!------------------------------>
+          <div *ngIf="them >= 5">
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 5</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary5" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price5" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi5" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no5" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          <!------------------------------>
+
+          <div *ngIf="them >= 6">
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 6</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary6" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price6" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi6" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no6" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          <!------------------------------>
+          <div *ngIf="them >= 7">
+            <br /><br />
+            <div class="row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Nhà cung cấp 7</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Summary" [(ngModel)]="summary7" type="text" />
+                </div>
+              </div>
+            </div>
+
+            <div class=" row">
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá </label>
+                  <input class=" form-control" placeholder="Price" [(ngModel)]="price7" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Giá mới </label>
+                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi7" type="text" />
+                </div>
+              </div>
+              <div class=" col-md-4 pr-md-1">
+                <div class=" form-group">
+                  <label> Thứ tự </label>
+                  <input class=" form-control" placeholder="Thứ tự" [(ngModel)]="no7" type="number" min="1" max="5" />
+                </div>
+              </div>
+
+
+            </div>
+
+          </div>
+          <!------------------------------>
+
+
+
+
+
+
+
+
+
+
+
         </div>
+
+
+        <div class=" card-footer">
+          <button class=" btn btn-fill btn-danger" type="submit" (click)="themnhacungcap()" [hidden]="isDisable">Thêm</button>
+        </div>
+
         <div class=" card-footer" [hidden]="isDisable">
           <button class=" btn btn-fill btn-danger" type="submit" (click)="submit()" [hidden]="isDisable">Lưu</button>
 

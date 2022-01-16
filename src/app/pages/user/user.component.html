@@ -60,8 +60,8 @@
             </div>
             <div class=" col-md-4 pr-md-1">
               <div class=" form-group">
-                <label> Giá mới </label>
-                <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi" type="text" />
+                <label> Ghi chú </label>
+                <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi" type="text" />
               </div>
             </div>
             <div class=" col-md-4 pr-md-1">
@@ -95,8 +95,8 @@
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi2" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi2" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -133,8 +133,8 @@
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi3" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi3" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -170,8 +170,8 @@
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi4" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi4" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -206,8 +206,8 @@
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi5" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi5" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -243,8 +243,8 @@
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi6" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi6" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -274,13 +274,13 @@
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
                   <label> Giá </label>
-                  <input class=" form-control" placeholder="Price" [(ngModel)]="price7" type="text" />
+                  <input class=" form-control" placeholder="Giá" [(ngModel)]="price7" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
                 <div class=" form-group">
-                  <label> Giá mới </label>
-                  <input class=" form-control" placeholder="Giá mới" [(ngModel)]="giamoi7" type="text" />
+                  <label> Ghi chú </label>
+                  <input class=" form-control" placeholder="Ghi chú" [(ngModel)]="giamoi7" type="text" />
                 </div>
               </div>
               <div class=" col-md-4 pr-md-1">
@@ -309,7 +309,7 @@
         </div>
 
 
-        <div class=" card-footer">
+        <div class=" card-footer" *ngIf="editData.id == null">
           <button class=" btn btn-fill btn-danger" type="submit" (click)="themnhacungcap()" [hidden]="isDisable">Thêm</button>
         </div>
 

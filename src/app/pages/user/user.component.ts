@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
   categories: Category[];
   selectedCategory: any;
   // selectedCategory: string = 'air_pods_new';
-  category = 'air_pods_new';
+  category = 'iphone';
 
   summary = '';
   summary2 = '';
@@ -95,17 +95,17 @@ export class UserComponent implements OnInit {
   ) {
     this.editData = window.history.state
     this.categories = [
-      { label: 'Air Pods', value: 'air_pods_new' },
-      { label: 'Ipad New', value: 'ipad_new' },
-      { label: 'Iphone New', value: 'iphone_new' },
-      { label: 'Macbook Air', value: 'macbook_new' },
-      { label: 'Macbook Pro', value: 'macbookpro' },
-      { label: 'Sim Data Wifi New', value: 'sim_data_wifi_new' },
-      { label: 'Apple watch New', value: 'apple_watch_new' },
-      { label: 'Android', value: 'android' },
-      { label: 'Phụ kiện', value: 'phukien' },
-      { label: 'Sản phẩm khác', value: 'sanphamkhac' },
-      { label: 'Dien thoai cu', value: 'dienthoaicu' }
+      { label: 'Iphone', value: 'iphone' },
+      { label: 'Ipad', value: 'ipad' },
+      { label: 'Apple Watch', value: 'applewatch' },
+      { label: 'Au', value: 'au' },
+      { label: 'Docomo', value: 'docomo' },
+      { label: 'Softbank', value: 'softbank' },
+      { label: 'UQ Mobile', value: 'uqmobile' },
+      { label: 'Y Mobile', value: 'ymobile' },
+      { label: 'イヤホン', value: 'イヤホン' },
+      { label: 'その他', value: 'その他' },
+      // { label: 'Dien thoai cu', value: 'dienthoaicu' }
     ]
     this.initForm()
 
@@ -129,7 +129,7 @@ export class UserComponent implements OnInit {
       this.giamoi = this.editData.giamoi
     }
     else {
-      this.selectedCategory = 'air_pods_new';
+      this.selectedCategory = 'iphone';
     }
   }
 
@@ -159,6 +159,7 @@ export class UserComponent implements OnInit {
 
       this.no, this.giamoi, this.editData.id
       ]
+      console.log('this.deviceUpdate', this.deviceUpdate)
       this.networkserviceService.updateAllDevices(this.deviceUpdate).subscribe(
         data => {
           alert("Lưu Thành Công");
@@ -192,8 +193,8 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-          
 
+            this.router.navigateByUrl('dashboard')
           },
           error => {
 
@@ -221,8 +222,8 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-           
 
+            this.router.navigateByUrl('dashboard')
           },
           error => {
 
@@ -249,7 +250,7 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-          
+
 
           },
           error => {
@@ -277,7 +278,7 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-     
+
 
           },
           error => {
@@ -306,7 +307,7 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-          
+
 
           },
           error => {
@@ -335,7 +336,7 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-           
+
 
           },
           error => {
@@ -364,7 +365,7 @@ export class UserComponent implements OnInit {
             alert("Lưu Thành Công");
 
             console.log("POST Request is successful ", data);
-           
+
 
           },
           error => {
@@ -375,13 +376,13 @@ export class UserComponent implements OnInit {
       }
 
 
-     
 
 
-      
 
 
-      
+
+
+
 
     }
 

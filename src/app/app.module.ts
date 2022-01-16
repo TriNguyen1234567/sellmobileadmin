@@ -17,6 +17,10 @@ import { AppRoutingModule } from "./app-routing.module";
 import { ComponentsModule } from "./components/components.module";
 import { TableModule  } from 'primeng/table';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { CustomersComponent } from './pages/customers/customers.component';
+import { CustomerComponent } from './pages/customer/customer.component';
+import { InvoicesComponent } from './pages/invoices/invoices.component';
+import { InvoiceComponent } from './pages/invoice/invoice.component';
 
 
 @NgModule({

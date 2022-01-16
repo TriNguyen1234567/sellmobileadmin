@@ -96,6 +96,35 @@ export const ROUTES: RouteInfo[] = [
   //   icon: "icon-bell-55",
   //   class: ""
   // }
+  {
+    path: "/customers",
+    title: "DS NGƯỜI BÁN",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/customer",
+    title: "NGƯỜI BÁN",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/invoices",
+    title: "DS THU MUA",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/invoice",
+    title: "ĐƠN THU MUA",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  }
+
 ];
 
 @Component({

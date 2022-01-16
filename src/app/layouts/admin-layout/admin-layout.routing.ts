@@ -12,6 +12,10 @@ import { WifiComponent } from "../../pages/wifi/wifi.component";
 import { CongtacvienComponent } from 'src/app/pages/congtacvien/congtacvien.component';
 import { ChuatracocComponent } from 'src/app/pages/chuatracoc/chuatracoc.component';
 import { WifidoicaplaisimComponent } from 'src/app/pages/wifidoicaplaisim/wifidoicaplaisim.component';
+import { CustomersComponent } from "src/app/pages/customers/customers.component";
+import { CustomerComponent } from "src/app/pages/customer/customer.component";
+import { InvoicesComponent } from "src/app/pages/invoices/invoices.component";
+import { InvoiceComponent } from "src/app/pages/invoice/invoice.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -25,5 +29,9 @@ export const AdminLayoutRoutes: Routes = [
   //  { path: "rtl", component: RtlComponent },
    { path: "chuatracoc", component: ChuatracocComponent },
    { path: "congtacvien", component: CongtacvienComponent },
-   { path: "wifidoicaplaisim", component: WifidoicaplaisimComponent }
+   { path: "wifidoicaplaisim", component: WifidoicaplaisimComponent },
+   { path: "customers", component: CustomersComponent},
+   { path: "customer", component: CustomerComponent},
+   { path: "invoices", component: InvoicesComponent},
+   { path: "invoice", component: InvoiceComponent}
 ];

@@ -1,0 +1,9 @@
+::ng-deep {
+  .birthday-calendar {
+    .ui-datepicker {
+      &:not(.ui-datepicker-inline) {
+        top: auto !important;
+      }
+    }
+  }
+}

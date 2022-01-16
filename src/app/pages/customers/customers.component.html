@@ -1,0 +1,69 @@
+<div class=" content">
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title" style="color: orangered; font-weight: bold;">DS Khách Hàng
+          </h4>
+        </div>
+        <div class=" card-body">
+          <label style="margin-right: 20px;"> </label>
+          <div class="form-inline mb-2">
+            <div class="form-group">
+              <label for="searchText">Tìm Kiếm: </label>
+              <input type="text"
+                     [(ngModel)]="searchText" required id="searchText" (keydown.enter)="onSearchCustomer($event)"
+                     name="searchText" />
+              <i *ngIf="isSearching" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+            </div>
+          </div>
+
+          <p-table dataKey="id" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true"
+                   [rows]="20" [tableStyle]="{'table-layout':'auto'}">
+
+            <ng-template pTemplate="header" let-columns class=" text-primary">
+              <tr>
+                <th></th>
+                <th>Tên Tiếng Việt</th>
+                <th>Tên Tiếng Nhật</th>
+                <th>Ngày Sinh</th>
+                <th>Tuổi</th>
+                <th>Địa Chỉ</th>
+                <th>SDT</th>
+                <th>Nghề Nghiệp</th>
+                <th></th>
+                <th></th>
+              </tr>
+            </ng-template>
+            <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
+                         let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="rowData">
+                <td>{{i + 1}}</td>
+                <td>{{rowData.name_vietnamese}}</td>
+                <td>{{rowData.name_japanese}}</td>
+                <td>{{rowData.birthday}}</td>
+                <td>{{rowData.age}}</td>
+                <td>{{rowData.address}}</td>
+                <td>{{rowData.phone}}</td>
+                <td>{{rowData.job | jobTitle}}</td>
+                <td style="text-align:center">
+                  <button (click)="onRowEditInit(rowData)" pButton pRipple type="button"
+                          pInitEditableRow icon="pi pi-pencil"
+                          class="p-button-rounded p-button-text"></button>
+
+                </td>
+                <td style="text-align:center">
+                  <button style="background-color: orangered;" pButton type="button"
+                          pCancelEditableRow icon="pi pi-trash" class="ui-button-danger"
+                          (click)="onRowDelete(rowData,ri)"
+                          class="p-button-rounded p-button-text"></button>
+                </td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

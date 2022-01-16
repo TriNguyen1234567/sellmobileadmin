@@ -1,7 +1,7 @@
 import { NgModule } from "@angular/core";
 import { HttpClientModule } from "@angular/common/http";
 import { RouterModule } from "@angular/router";
-import { CommonModule } from "@angular/common";
+import { CommonModule, DatePipe } from "@angular/common";
 
 
 import { AdminLayoutRoutes } from "./admin-layout.routing";
@@ -28,6 +28,12 @@ import { WifidoicaplaisimComponent } from 'src/app/pages/wifidoicaplaisim/wifido
 
 import {FileUploadModule} from 'primeng/fileupload';
 import {ToggleButtonModule} from 'primeng/togglebutton';
+import { CustomersComponent } from "src/app/pages/customers/customers.component";
+import { CustomerComponent } from "src/app/pages/customer/customer.component";
+import { InvoicesComponent } from "src/app/pages/invoices/invoices.component";
+import { InvoiceComponent } from "src/app/pages/invoice/invoice.component";
+import { JobTitlePipe } from '../../shared/pipes/job-title.pipe';
+import { DeviceStatusPipe } from '../../shared/pipes/device-status.pipe';
 @NgModule({
   imports: [
     CommonModule,
@@ -55,7 +61,18 @@ import {ToggleButtonModule} from 'primeng/togglebutton';
     CongtacvienComponent,
     ChuatracocComponent,
     WifidoicaplaisimComponent,
+    CustomersComponent,
+    CustomerComponent,
+    InvoicesComponent,
+    InvoiceComponent,
+    JobTitlePipe,
+    DeviceStatusPipe,
     //  RtlComponent
+  ],
+  providers: [
+    DatePipe,
+    JobTitlePipe,
+    DeviceStatusPipe
   ]
 })
 export class AdminLayoutModule { }

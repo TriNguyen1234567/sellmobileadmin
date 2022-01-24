@@ -1,0 +1,53 @@
+<div class=" content">
+    <div class=" row">
+        <div class=" col-md-12">
+            <div class=" card">
+                <div class=" card-header">
+                    <h4 class=" card-title" style="color: orangered; font-weight: bold;">QUẢN LÝ MÁY
+                    </h4>
+                </div>
+                <div class=" card-body">
+                    <label style="margin-right: 20px;"> </label>
+                    <div class="row">
+                        <input style="margin: 20px;" type="text" [(ngModel)]="searchNameText" required id="searchNameText"
+                           placeholder="Tên Máy" (ngModelChange)="SearchChange()" name="searchNameText" />
+                            <input style="margin: 20px;" type="text" [(ngModel)]="searchImeiText" required id="searchImeiText"
+                            placeholder="IMEI" (ngModelChange)="SearchChange()" name="searchImeiText" />
+                    </div>
+                    <p-table dataKey="id" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true"
+                        [rows]="20" [tableStyle]="{'table-layout':'auto'}">
+
+                        <ng-template pTemplate="header" let-columns class=" text-primary">
+                            <tr>
+                                <th></th>
+                                <th>Tên máy</th>
+                                <th>IMEI</th>
+                                <th>Tình trạng</th>
+                                <th>Giá mua</th>
+                                <th>Ngày mua</th>
+                                <th>Người bán</th>
+                                <th>Đơn mua hàng</th>
+                            </tr>
+                        </ng-template>
+                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
+                            let-editing="editing" let-ri="rowIndex">
+                            <tr [pEditableRow]="rowData">
+                                <td>{{i + 1}}</td>
+                                <td>{{rowData.name}}</td>
+                                <td>{{rowData.imei}}</td>
+                                <td>{{rowData.status | deviceStatus}}</td>
+                                <td>{{rowData.price}}</td>
+                                <td>{{rowData.sale_date | date: dateFormat}}</td>
+                                <td>{{rowData.name_vietnamese}}</td>
+                                <td><button (click)="onShowInvoice(rowData)" pButton pRipple type="button"
+                                    pInitEditableRow icon="pi pi-eye"
+                                    class="p-button-rounded p-button-text"></button></td>
+                            </tr>
+                        </ng-template>
+                    </p-table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

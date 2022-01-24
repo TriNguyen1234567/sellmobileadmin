@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { notEmpty } from '../../utils/data.utils';
+import { DEFAULT_BIRTHDAY_YEAR_RANGE } from '../../constant/common';
 
 @Component({
   selector: 'app-customers',
@@ -12,7 +13,9 @@ import { notEmpty } from '../../utils/data.utils';
 export class CustomersComponent implements OnInit {
   data: any = [];
   originalData: any = [];
-  searchText = '';
+  searchName = '';
+  searchPhone = '';
+  searchBirthday = '';
   cols = [
     {field: 'name_vietnamese', header: 'name_vietnamese'},
     {field: 'name_japanese', header: 'name_japanese'},
@@ -23,6 +26,18 @@ export class CustomersComponent implements OnInit {
     {field: 'job', header: 'job'},
   ];
   isSearching: boolean = false;
+
+  birthdayYearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
+
+  customerSearch: {
+    name: string,
+    phone: string,
+    birthday: Date,
+  } = {
+    name: null,
+    phone: null,
+    birthday: null
+  }
 
   constructor(
     private networkserviceService: NetworkserviceService,
@@ -61,13 +76,51 @@ export class CustomersComponent implements OnInit {
   }
 
   onSearchCustomer(event) {
-    if (notEmpty(this.searchText)) {
-      const tempDate = JSON.parse(JSON.stringify(this.originalData));
-      this.data = tempDate.filter(x => {
-        return x.name_vietnamese.includes(this.searchText) || x.birthday.toLowerCase() == this.searchText.toLowerCase().trim() || x.phone.includes(this.searchText);
-      });
-    } else {
-      this.data = JSON.parse(JSON.stringify(this.originalData));
-    }
+    console.log('>>>> this: customerSearch: ', this.customerSearch);
+    // const tempDate = JSON.parse(JSON.stringify(this.originalData));
+    // if (notEmpty(this.searchName) && notEmpty(this.searchPhone && notEmpty(this.searchBirthday))) {
+    //   this.data = tempDate.filter(x => {
+    //     return x.name_vietnamese.includes(this.searchName) && x.phone.includes(this.searchPhone) && x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
+    //   });
+    // }
+    // else if(notEmpty(this.searchName) && notEmpty(this.searchPhone)){
+    //   this.data = tempDate.filter(x => {
+    //     return x.name_vietnamese.includes(this.searchName) && x.phone.includes(this.searchPhone);
+    //   });
+    // }
+    // else if(notEmpty(this.searchPhone) && notEmpty(this.searchBirthday)){
+    //   this.data = tempDate.filter(x => {
+    //     return x.phone.includes(this.searchPhone) &&  x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
+    //   });
+    // }
+    // else if(notEmpty(this.searchName) && notEmpty(this.searchBirthday)){
+    //   this.data = tempDate.filter(x => {
+    //     return x.name_vietnamese.includes(this.searchName) && x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
+    //   });
+    // }
+    // else if(notEmpty(this.searchName)){
+    //   console.log(this.searchName);
+    //
+    //   this.data = tempDate.filter(x => {
+    //     return x.name_vietnamese.includes(this.searchName);
+    //   });
+    // }
+    // else if(notEmpty(this.searchPhone)){
+    //   this.data = tempDate.filter(x => {
+    //     return x.phone.includes(this.searchPhone);
+    //   });
+    // }
+    // else if(notEmpty(this.searchBirthday)){
+    //   this.data = tempDate.filter(x => {
+    //     return  x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
+    //   });
+    // }
+    // else {
+    //   this.data = JSON.parse(JSON.stringify(this.originalData));
+    // }
+  }
+
+  navigateToAddCustomer() {
+    this.router.navigateByUrl('customer');
   }
 }

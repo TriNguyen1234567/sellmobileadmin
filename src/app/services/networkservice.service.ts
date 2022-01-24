@@ -158,8 +158,8 @@ export class NetworkserviceService {
   }
 
   getInvoices() {
-    const customersURL = `${NETWORK.API.Invoices}`;
-    return this.httpClient.get<any>(customersURL);
+    const invoicesUrl = `${NETWORK.API.Invoices}`;
+    return this.httpClient.get<any>(invoicesUrl);
   }
 
   getInvoiceItems(invoice_id: number) {
@@ -167,16 +167,60 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(invoiceItemsUrl);
   }
 
-  getCustomerByBirthday(birthday) {
-    let params = new HttpParams().set('birthday', birthday);
-    const customerByBirthday = `${NETWORK.API.GetCustomerByBirthday}`;
-
-    return this.httpClient.get<any>(customerByBirthday, {params: params});
-  }
-
   postInvoice(data) {
     const postInvoiceURL = `${NETWORK.API.Invoices}`;
     let headers = new HttpHeaders();
     return this.httpClient.post<any>(postInvoiceURL, data, {headers: headers});
+  }
+
+  getMobiles() {
+    const customersURL = `${NETWORK.API.Mobiles}`;
+    return this.httpClient.get<any>(customersURL);
+  }
+
+  postOrder(data) {
+    const postInvoiceURL = `${NETWORK.API.OrderInvoices}`;
+    let headers = new HttpHeaders();
+    return this.httpClient.post<any>(postInvoiceURL, data, {headers: headers});
+  }
+
+  putOrder(data) {
+    const postInvoiceURL = `${NETWORK.API.OrderInvoices}`;
+    let headers = new HttpHeaders();
+    return this.httpClient.put<any>(postInvoiceURL, data, {headers: headers});
+  }
+
+  getOrdersPending() {
+    const postInvoiceURL = `${NETWORK.API.OrderInvoices}\\Pending`;
+    return this.httpClient.get<any>(postInvoiceURL);
+  }
+
+  getOrdersCompleted() {
+    const postInvoiceURL = `${NETWORK.API.OrderInvoices}\\Completed`;
+    return this.httpClient.get<any>(postInvoiceURL);
+  }
+  getOrderDetail(orderId) {
+    const postInvoiceURL = `${NETWORK.API.OrderInvoices}\\details\\${orderId}`;
+    return this.httpClient.get<any>(postInvoiceURL);
+  }
+
+  deleteInvoice(data) {
+    const invoicesUrl = `${NETWORK.API.Invoices}/${data}`;
+    return this.httpClient.delete<any>(invoicesUrl);
+  }
+
+  putInvoice(data) {
+    const invoicesUrl = `${NETWORK.API.Invoices}`;
+    let headers = new HttpHeaders();
+    return this.httpClient.put<any>(invoicesUrl, data, {headers: headers});
+  }
+
+  getStatistics(type, fromDate, toDate) {
+    const postInvoiceURL = `${NETWORK.API.Statistics}?type=${type}&fromDate=${fromDate}&toDate=${toDate}`;
+    return this.httpClient.get<any>(postInvoiceURL);
+  }
+  getDevices() {
+    const devicesURL = `${NETWORK.API.Devices}`;
+    return this.httpClient.get<any>(devicesURL);
   }
 }

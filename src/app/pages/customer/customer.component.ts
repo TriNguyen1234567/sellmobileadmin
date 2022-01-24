@@ -17,7 +17,7 @@ export class CustomerComponent implements OnInit {
   customerForm: FormGroup | any;
   customer: any = {};
   jobs = PEOPLE_JOBS;
-  selectedJobs: any = '';
+  selectedJobs = PEOPLE_JOBS[0];
   birthday: Date;
 
   constructor(private formBuilder: FormBuilder,
@@ -39,7 +39,7 @@ export class CustomerComponent implements OnInit {
     }
 
     this.birthday = new Date(this.customer.birthday);
-    const job = this.jobs.find(x => x.value === this.customer.job);
+    const job = this.jobs.find(job => job.value === this.customer.job);
     if (job) {
       this.selectedJobs = job;
     }
@@ -50,6 +50,7 @@ export class CustomerComponent implements OnInit {
     if (this.editData.id) {
       this.getData();
     }
+    this.customer.job = this.selectedJobs.value;
   }
 
   onChangeJob() {
@@ -73,6 +74,7 @@ export class CustomerComponent implements OnInit {
 
     if (this.customer.id) {
       this.networkserviceService.putCustomer(data).subscribe(x => {
+          alert("Lưu Thành Công");
           this.router.navigateByUrl('customers')
         },
         error => {
@@ -82,7 +84,8 @@ export class CustomerComponent implements OnInit {
         });
     } else {
       this.networkserviceService.postCustomer(data).subscribe(x => {
-          this.router.navigateByUrl('customers')
+          alert("Lưu Thành Công");
+          this.router.navigateByUrl('customers')  
         },
         error => {
           console.log("Error", error);
@@ -90,6 +93,18 @@ export class CustomerComponent implements OnInit {
         });
     }
 
+  }
+
+  // Only Integer Numbers
+  keyPressNumbers(event) {
+    var charCode = (event.which) ? event.which : event.keyCode;
+    // Only Numbers 0-9
+    if ((charCode < 48 || charCode > 57)) {
+      event.preventDefault();
+      return false;
+    } else {
+      return true;
+    }
   }
 
 }

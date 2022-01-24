@@ -3,17 +3,20 @@
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title" style="color: orangered; font-weight: bold;">DS THU MUA
+          <h4 class=" card-title" style="color: orangered; font-weight: bold;">QUẢN LÝ ĐƠN THU MUA
           </h4>
         </div>
         <div class=" card-body">
           <label style="margin-right: 20px;"> </label>
           <div class="row">
-            <label style="margin: 20px;"> Search</label>
             <input style="margin: 20px;" type="text"
-                   [(ngModel)]="searchText" required id="searchText" (ngModelChange)="SearchChange()"
-                   name="searchText" />
-          </div>
+                   [(ngModel)]="searchNameText" required id="searchNameText" (ngModelChange)="SearchChange()"
+                   name="searchNameText" placeholder="Tên Tiếng Việt"/>
+            <input style="margin: 20px;" type="text"
+                   [(ngModel)]="searchSaleDate" required id="searchSaleDate" (ngModelChange)="SearchChange()"
+                   name="searchSaleDate" placeholder="Ngày Bán"/>
+            <a [routerLink]="['/invoice']"><button class="btn btn-fill btn-danger" type="button" style="background-image: linear-gradient(to bottom left, #6bd5f0, #3358f4, #6bd5f0); margin-top: 10px;">Thêm Mới</button></a>
+            </div>
 
           <p-table dataKey="id" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true"
                    [rows]="20" [tableStyle]="{'table-layout':'auto'}">
@@ -26,6 +29,7 @@
                 <th>Số Máy Bán</th>
                 <th>Tổng Số Tiền</th>
                 <th></th>
+                <th></th>
               </tr>
             </ng-template>
             <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
@@ -37,12 +41,18 @@
                 <td>{{rowData.quantity}}</td>
                 <td>{{rowData.total_money}}</td>
                 <td style="text-align:center">
-                  <!-- <button routerLink="/detail" [state]="rowData" pButton pRipple type="button" pInitEditableRow icon="pi pi-pencil" (click)="onRowEditInit(rowData)" class="p-button-rounded p-button-text"></button> -->
-                  <button (click)="onShowDetail($event, rowData)" pButton pRipple type="button"
-                          pInitEditableRow icon="pi pi-eye"
+                  <button (click)="onRowEditInit(rowData)" pButton pRipple type="button"
+                          pInitEditableRow icon="pi pi-pencil"
                           class="p-button-rounded p-button-text"></button>
 
                 </td>
+                <td style="text-align:center">
+                  <button style="background-color: orangered;" pButton type="button"
+                          pCancelEditableRow icon="pi pi-trash" class="ui-button-danger"
+                          (click)="onRowDelete(rowData,ri)"
+                          class="p-button-rounded p-button-text"></button>
+                </td>
+                
               </tr>
             </ng-template>
           </p-table>

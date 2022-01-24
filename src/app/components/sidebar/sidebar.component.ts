@@ -7,6 +7,7 @@ declare interface RouteInfo {
   icon: string;
   class: string;
 }
+
 export const ROUTES: RouteInfo[] = [
   {
     path: "/dashboard",
@@ -72,7 +73,7 @@ export const ROUTES: RouteInfo[] = [
   //   icon: "icon-puzzle-10",
   //   class: ""
   // },
-  
+
   // {
   //   path: "/rtl",
   //   title: "DS Khách Hàng Trả Lại",
@@ -96,50 +97,76 @@ export const ROUTES: RouteInfo[] = [
   //   icon: "icon-bell-55",
   //   class: ""
   // }
+];
+
+export const WEB_THU_MUA_ROUTES: RouteInfo[] = [
   {
     path: "/customers",
-    title: "DS NGƯỜI BÁN",
-    //rtlTitle: "ار تي ال",
-    icon: "icon-single-02",
-    class: ""
-  },
-  {
-    path: "/customer",
-    title: "NGƯỜI BÁN",
+    title: "QUẢN LÝ NGƯỜI BÁN",
     //rtlTitle: "ار تي ال",
     icon: "icon-single-02",
     class: ""
   },
   {
     path: "/invoices",
-    title: "DS THU MUA",
+    title: "QUẢN LÝ ĐƠN THU MUA",
     //rtlTitle: "ار تي ال",
     icon: "icon-single-02",
     class: ""
   },
   {
-    path: "/invoice",
-    title: "ĐƠN THU MUA",
+    path: "/mobiles",
+    title: "DS MÁY TRONG KHO",
     //rtlTitle: "ار تي ال",
     icon: "icon-single-02",
     class: ""
+  },
+  {
+    path: "/orders",
+    title: "DS ĐH ĐANG XỬ LÝ",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/ordersComplete",
+    title: "DS ĐH HOÀN THÀNH",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/statistics",
+    title: "QUẢN LÝ THU CHI",
+    //rtlTitle: "ار تي ال",
+    icon: "icon-single-02",
+    class: ""
+  },
+  {
+    path: "/devices",
+    title: "QUẢN LÝ MÁY",
+    icon: "icon-single-02",
+    class: ""
   }
-
 ];
 
 @Component({
   selector: "app-sidebar",
   templateUrl: "./sidebar.component.html",
-  styleUrls: ["./sidebar.component.css"]
+  styleUrls: ["./sidebar.component.scss"]
 })
 export class SidebarComponent implements OnInit {
   menuItems: any[];
+  webThuMuaMenuItems: any[];
 
-  constructor() {}
+  constructor() {
+  }
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
+    this.webThuMuaMenuItems = WEB_THU_MUA_ROUTES.filter(menuItem => menuItem);
   }
+
   isMobileMenu() {
     if (window.innerWidth > 991) {
       return false;

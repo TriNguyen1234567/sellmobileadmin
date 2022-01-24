@@ -3,18 +3,40 @@
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" card-title" style="color: orangered; font-weight: bold;">DS Khách Hàng
+          <h4 class=" card-title" style="color: orangered; font-weight: bold;">QUẢN LÝ NGƯỜI BÁN
           </h4>
         </div>
         <div class=" card-body">
-          <label style="margin-right: 20px;"> </label>
-          <div class="form-inline mb-2">
-            <div class="form-group">
-              <label for="searchText">Tìm Kiếm: </label>
-              <input type="text"
-                     [(ngModel)]="searchText" required id="searchText" (keydown.enter)="onSearchCustomer($event)"
-                     name="searchText" />
-              <i *ngIf="isSearching" class="pi pi-spin pi-spinner" style="font-size: 2rem"></i>
+          <div class="row customer-search">
+            <div class="col-3 col-md-3 text-center">
+              <input style="margin: 15px; width: 90%;" type="text" placeholder="Tên Tiếng Việt"
+                     [(ngModel)]="customerSearch.name" required id="searchName" (keydown.enter)="onSearchCustomer($event)"
+                     name="searchName" class=" form-control" />
+            </div>
+            <div class="col-3 col-md-3 text-center">
+              <input style="margin: 15px; width: 90%;" type="text" placeholder="Số Điện Thoại"
+                     [(ngModel)]="customerSearch.phone" required id="searchPhone" (keydown.enter)="onSearchCustomer($event)"
+                     name="searchPhone" class=" form-control" />
+            </div>
+            <div class="col-3 col-md-3 text-center">
+              <p-calendar
+                [inputStyleClass]="'form-control'"
+                [styleClass]="'birthday-calendar'"
+                placeholder="Ngày Sinh"
+                [(ngModel)]="customerSearch.birthday"
+                dateFormat="dd-mm-yy"
+                (ngModelChange)="onSearchCustomer($event)"
+                [ngModelOptions]="{standalone: true}"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                [yearRange]="birthdayYearRange"
+                #birthdayValidate="ngModel"
+              >
+              </p-calendar>
+            </div>
+            <div class="col-3 col-md-3">
+              <button type="button" pButton icon="pi pi-plus" iconPos="left" label="THÊM" (click)="navigateToAddCustomer()"
+                      style="margin-right: 15px; margin-top: 10px;" class="ui-button-info float-right"></button>
             </div>
           </div>
 
@@ -29,7 +51,7 @@
                 <th>Ngày Sinh</th>
                 <th>Tuổi</th>
                 <th>Địa Chỉ</th>
-                <th>SDT</th>
+                <th>Số Điện Thoại</th>
                 <th>Nghề Nghiệp</th>
                 <th></th>
                 <th></th>

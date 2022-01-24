@@ -4,7 +4,7 @@
     <div class=" col-md-12">
       <div class=" card">
         <div class=" card-header">
-          <h4 class=" title" style="color: orangered; font-weight: bold;">Khách Hàng</h4>
+          <h4 class=" title" style="color: orangered; font-weight: bold;">NGƯỜI BÁN</h4>
         </div>
         <div class="card-body">
           <form #createAppForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="false"
@@ -15,9 +15,9 @@
                   <label> Tên Tiếng Việt </label> <label style="color: #ec250d;"> *</label>
                   <input class=" form-control" placeholder="Tên Tiếng Việt" type="text"
                          [(ngModel)]="customer.name_vietnamese" required id="name_vietnamese"
-                         name="name_vietnamese" #name_vietnamese="ngModel" />
+                         name="name_vietnamese" #nameVietnameseValidate="ngModel" />
 
-                  <div *ngIf="name_vietnamese.invalid && (name_vietnamese.dirty || name_vietnamese.touched)">
+                  <div *ngIf="nameVietnameseValidate.invalid && (nameVietnameseValidate.dirty || nameVietnameseValidate.touched)">
                     <label style="color: #ec250d;"> Tên Tiếng Việt is required.</label>
                   </div>
                 </div>
@@ -30,8 +30,8 @@
                   <label> Tên Tiếng Nhật </label> <label style="color: #ec250d;"> *</label>
                   <input class=" form-control" placeholder="Tên Tiếng Nhật" type="text"
                          [(ngModel)]="customer.name_japanese" required id="name_japanese"
-                         name="name_japanese" #name_japanese="ngModel" />
-                  <div *ngIf="name_vietnamese.invalid && (name_vietnamese.dirty || name_vietnamese.touched)">
+                         name="name_japanese" #nameJapaneseValidate="ngModel" />
+                  <div *ngIf="nameJapaneseValidate.invalid && (nameJapaneseValidate.dirty || nameJapaneseValidate.touched)">
                     <label style="color: #ec250d;"> Tên Tiếng Nhật is required.</label>
                   </div>
                 </div>
@@ -40,7 +40,7 @@
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
-                  <label> Ngày Sinh</label> <label style="color: #ec250d;"> *</label>
+                  <label> Ngày Sinh</label> <label style="color: #ec250d;"> * &nbsp;</label>
                   <p-calendar
                     [styleClass]="'birthday-calendar'"
                     placeholder="Ngày Sinh"
@@ -51,9 +51,10 @@
                     [monthNavigator]="true"
                     [yearNavigator]="true"
                     [yearRange]="birthdayYearRange"
+                    #birthdayValidate="ngModel"
                   >
                   </p-calendar>
-                  <div *ngIf="!birthday">
+                  <div *ngIf="birthdayValidate.invalid && (birthdayValidate.dirty || birthdayValidate.touched)">
                     <label style="color: #ec250d;"> Ngày Sinh is required.</label>
                   </div>
                 </div>
@@ -65,20 +66,19 @@
                 <div class=" form-group">
                   <label> Tuổi</label> <label style="color: #ec250d;"> *</label>
                   <input class=" form-control" placeholder="Tuổi" type="text" [(ngModel)]="customer.age"
-                         disabled id="age" name="age" #age="ngModel" />
-
+                         disabled id="age" name="age" />
                 </div>
               </div>
             </div>
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
-                  <label> Địa chỉ</label> <label style="color: #ec250d;"> *</label>
-                  <input class=" form-control" placeholder="Địa chỉ" type="text"
+                  <label> Địa Chỉ</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Địa Chỉ" type="text"
                          [(ngModel)]="customer.address" required id="address" name="address"
-                         #address="ngModel" />
-                  <div *ngIf="name_vietnamese.invalid && (name_vietnamese.dirty || name_vietnamese.touched)">
-                    <label style="color: #ec250d;"> Địa chỉ is required.</label>
+                         #addressValidate="ngModel" />
+                  <div *ngIf="addressValidate.invalid && (addressValidate.dirty || addressValidate.touched)">
+                    <label style="color: #ec250d;"> Địa Chỉ is required.</label>
                   </div>
                 </div>
               </div>
@@ -86,11 +86,11 @@
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
-                  <label> SDT</label> <label style="color: #ec250d;"> *</label>
-                  <input class=" form-control" placeholder="SDT" type="number" [(ngModel)]="customer.phone"
-                         required id="phone" name="phone" #phone="ngModel" />
-                  <div *ngIf="name_vietnamese.invalid && (name_vietnamese.dirty || name_vietnamese.touched)">
-                    <label style="color: #ec250d;"> SDT is required.</label>
+                  <label> Số Điện Thoại</label> <label style="color: #ec250d;"> *</label>
+                  <input class=" form-control" placeholder="Số Điện Thoại" type="text" [(ngModel)]="customer.phone"
+                         required id="phone" name="phone" #phoneValidate="ngModel" (keypress)="keyPressNumbers($event)"/>
+                  <div *ngIf="phoneValidate.invalid && (phoneValidate.dirty || phoneValidate.touched)">
+                    <label style="color: #ec250d;"> Số Điện Thoại is required.</label>
                   </div>
                 </div>
               </div>
@@ -98,14 +98,11 @@
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
-                  <label> Nghề Nghiệp</label> <label style="color: #ec250d;"> *</label>
-                  <p-dropdown [options]="jobs" (onChange)="onChangeJob($event.value)"
+                  <label> Nghề Nghiệp</label> <label style="color: #ec250d;"> * &nbsp;</label>
+                  <p-dropdown [options]="jobs" (onChange)="onChangeJob($event.value)" 
                               [(ngModel)]="selectedJobs" optionLabel="label" optionValue="value" required
                               [ngModelOptions]="{standalone: true}">
                   </p-dropdown>
-                  <div *ngIf="!selectedJobs || selectedJobs.value === '' || selectedJobs === null">
-                    <label style="color: #ec250d;"> Nghề Nghiệp is required.</label>
-                  </div>
                   <br />
                 </div>
               </div>

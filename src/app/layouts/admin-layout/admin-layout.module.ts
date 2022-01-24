@@ -34,6 +34,12 @@ import { InvoicesComponent } from "src/app/pages/invoices/invoices.component";
 import { InvoiceComponent } from "src/app/pages/invoice/invoice.component";
 import { JobTitlePipe } from '../../shared/pipes/job-title.pipe';
 import { DeviceStatusPipe } from '../../shared/pipes/device-status.pipe';
+import { MobilesComponent } from "src/app/pages/mobiles/mobiles.component";
+import { OrdersComponent } from "src/app/pages/orders/orders.component";
+import { OrdersCompletedComponent } from "src/app/pages/orders-completed/orders-completed.component";
+import { StatisticsComponent } from "src/app/pages/statistics/statistics.component";
+import { ExcelService } from "src/app/services/excel.service";
+import { DevicesComponent } from "src/app/pages/devices/devices.component";
 @NgModule({
   imports: [
     CommonModule,
@@ -67,12 +73,18 @@ import { DeviceStatusPipe } from '../../shared/pipes/device-status.pipe';
     InvoiceComponent,
     JobTitlePipe,
     DeviceStatusPipe,
+    MobilesComponent,
+    OrdersComponent,
+    OrdersCompletedComponent,
+    StatisticsComponent,
+    DevicesComponent
     //  RtlComponent
   ],
   providers: [
     DatePipe,
     JobTitlePipe,
-    DeviceStatusPipe
+    DeviceStatusPipe,
+    ExcelService
   ]
 })
 export class AdminLayoutModule { }

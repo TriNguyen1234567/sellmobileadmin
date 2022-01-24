@@ -16,7 +16,9 @@ export const NETWORK = {
         UpdateDeviceNew:HOST+'updateDeviceNew',
         Customers: HOST+'customers',
         Invoices: HOST+'invoices',
-        GetCustomerByBirthday: HOST+'getCustomerByBirthday',
-
+        Mobiles: HOST+'mobiles',
+        OrderInvoices: HOST+'orderInvoices',
+        Statistics: HOST+'statistics',
+        Devices: HOST+'devices'
     }
 };

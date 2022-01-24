@@ -16,6 +16,11 @@ import { CustomersComponent } from "src/app/pages/customers/customers.component"
 import { CustomerComponent } from "src/app/pages/customer/customer.component";
 import { InvoicesComponent } from "src/app/pages/invoices/invoices.component";
 import { InvoiceComponent } from "src/app/pages/invoice/invoice.component";
+import { MobilesComponent } from "src/app/pages/mobiles/mobiles.component";
+import { OrdersComponent } from "src/app/pages/orders/orders.component";
+import { OrdersCompletedComponent } from "src/app/pages/orders-completed/orders-completed.component";
+import { StatisticsComponent } from "src/app/pages/statistics/statistics.component";
+import { DevicesComponent } from "src/app/pages/devices/devices.component";
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -33,5 +38,10 @@ export const AdminLayoutRoutes: Routes = [
    { path: "customers", component: CustomersComponent},
    { path: "customer", component: CustomerComponent},
    { path: "invoices", component: InvoicesComponent},
-   { path: "invoice", component: InvoiceComponent}
+   { path: "invoice", component: InvoiceComponent},
+   { path: "mobiles", component: MobilesComponent},
+   { path: "orders", component: OrdersComponent},
+   { path: "ordersComplete", component: OrdersCompletedComponent},
+   { path: "statistics", component:StatisticsComponent},
+   { path: "devices", component:DevicesComponent}
 ];

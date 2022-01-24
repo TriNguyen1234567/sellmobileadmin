@@ -1,4 +1,4 @@
-export const HOST = 'http://localhost:3001/';
+export const HOST = 'https://sellmobile.herokuapp.com/';
 export const NETWORK = {
     API:{
         WiFi: HOST + 'wifi',

@@ -2,7 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
-import { DATE_CONSTANT } from '../../constant/common';
+import { DATE_CONSTANT, DEFAULT_BIRTHDAY_YEAR_RANGE } from '../../constant/common';
 import { notEmpty } from '../../utils/data.utils';
 
 @Component({
@@ -11,6 +11,7 @@ import { notEmpty } from '../../utils/data.utils';
   styleUrls: ['./invoices.component.scss']
 })
 export class InvoicesComponent implements OnInit {
+  yearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
   originalData = [];
   data = [];
   searchNameText = '';
@@ -25,6 +26,13 @@ export class InvoicesComponent implements OnInit {
   displayDetailModal: boolean = false;
   listDevices = [];
   selectedDevice: any;
+  invoiceSearch: {
+    name: string,
+    sale_date: Date,
+  } = {
+    name: null,
+    sale_date: null
+  };
 
   constructor(
     private networkService: NetworkserviceService, private router: Router, public datepipe: DatePipe) {
@@ -58,30 +66,44 @@ export class InvoicesComponent implements OnInit {
   SearchChange() {
     if (this.searchNameText == '' && this.searchSaleDate == '') {
       this.data = JSON.parse(JSON.stringify(this.originalData));
-    } 
-    else {
+    } else {
       const tempData = JSON.parse(JSON.stringify(this.originalData));
-      if(this.searchNameText != '' && this.searchSaleDate != ''){
+      if (this.searchNameText != '' && this.searchSaleDate != '') {
         this.data = tempData.filter(x => {
           return x.name_vietnamese.includes(this.searchNameText) && this.datepipe.transform(x.sale_date, 'dd-MM-yyyy') == this.searchSaleDate;
         });
-      }
-      else if(this.searchNameText != ''){
+      } else if (this.searchNameText != '') {
         this.data = tempData.filter(x => {
-          return x.name_vietnamese.includes(this.searchNameText) ;
+          return x.name_vietnamese.includes(this.searchNameText);
         });
-      }
-      else if(this.searchSaleDate != ''){
+      } else if (this.searchSaleDate != '') {
         this.data = tempData.filter(x => {
-          return this.datepipe.transform(x.sale_date, 'dd-MM-yyyy') == this.searchSaleDate ;
+          return this.datepipe.transform(x.sale_date, 'dd-MM-yyyy') == this.searchSaleDate;
         });
       }
     }
   }
 
+  onSearchInvoices = ($event) => {
+    this.data = JSON.parse(JSON.stringify(this.originalData));
+    if (notEmpty(this.invoiceSearch.name)) {
+      this.data = this.data.filter(x => {
+        return x.name_vietnamese.includes(this.invoiceSearch.name)
+      });
+    }
+
+    if (notEmpty(this.invoiceSearch.sale_date)) {
+      this.data = this.data.filter(x => {
+        return this.datepipe.transform(x.sale_date, 'dd-MM-yyyy') == this.datepipe.transform(this.invoiceSearch.sale_date, 'dd-MM-yyyy');
+      });
+    }
+  }
+
+  navigateToAddInvoice = () => {
+    this.router.navigateByUrl('invoice');
+  }
+
   onRowEditInit(rowData) {
-    console.log(rowData);
-    
     this.router.navigate(['/invoice'], {state: rowData});
   }
 

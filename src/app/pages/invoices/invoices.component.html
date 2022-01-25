@@ -8,14 +8,32 @@
         </div>
         <div class=" card-body">
           <label style="margin-right: 20px;"> </label>
-          <div class="row">
-            <input style="margin: 20px;" type="text"
-                   [(ngModel)]="searchNameText" required id="searchNameText" (ngModelChange)="SearchChange()"
-                   name="searchNameText" placeholder="Tên Tiếng Việt"/>
-            <input style="margin: 20px;" type="text"
-                   [(ngModel)]="searchSaleDate" required id="searchSaleDate" (ngModelChange)="SearchChange()"
-                   name="searchSaleDate" placeholder="Ngày Bán"/>
-            <a [routerLink]="['/invoice']"><button class="btn btn-fill btn-danger" type="button" style="background-image: linear-gradient(to bottom left, #6bd5f0, #3358f4, #6bd5f0); margin-top: 10px;">Thêm Mới</button></a>
+          <div class="row invoice-search">
+            <div class="col-4 col-md-4 text-center">
+              <input style="margin: 15px; width: 90%;" type="text"
+                     [(ngModel)]="invoiceSearch.name" required id="searchNameText" (keydown.enter)="onSearchInvoices($event)"
+                     name="searchNameText" placeholder="Tên Tiếng Việt" class=" form-control"/>
+            </div>
+            <div class="col-4 col-md-4 text-center">
+              <p-calendar
+                [inputStyleClass]="'form-control'"
+                [styleClass]="'sale-date-calendar'"
+                placeholder="Ngày Bán"
+                [(ngModel)]="invoiceSearch.sale_date"
+                dateFormat="dd-mm-yy"
+                (ngModelChange)="onSearchInvoices($event)"
+                [ngModelOptions]="{standalone: true}"
+                [monthNavigator]="true"
+                [yearNavigator]="true"
+                [yearRange]="yearRange"
+                #birthdayValidate="ngModel"
+              >
+              </p-calendar>
+            </div>
+            <div class="col-4 col-md-4">
+              <button type="button" pButton icon="pi pi-plus" iconPos="left" label="THÊM" (click)="navigateToAddInvoice()"
+                      style="margin-top: 20px;" class="ui-button-info float-right"></button>
+            </div>
             </div>
 
           <p-table dataKey="id" editMode="row" #tt [columns]="cols" [value]="data" [paginator]="true"
@@ -52,7 +70,7 @@
                           (click)="onRowDelete(rowData,ri)"
                           class="p-button-rounded p-button-text"></button>
                 </td>
-                
+
               </tr>
             </ng-template>
           </p-table>

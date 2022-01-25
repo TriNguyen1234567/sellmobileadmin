@@ -76,48 +76,26 @@ export class CustomersComponent implements OnInit {
   }
 
   onSearchCustomer(event) {
-    console.log('>>>> this: customerSearch: ', this.customerSearch);
-    // const tempDate = JSON.parse(JSON.stringify(this.originalData));
-    // if (notEmpty(this.searchName) && notEmpty(this.searchPhone && notEmpty(this.searchBirthday))) {
-    //   this.data = tempDate.filter(x => {
-    //     return x.name_vietnamese.includes(this.searchName) && x.phone.includes(this.searchPhone) && x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
-    //   });
-    // }
-    // else if(notEmpty(this.searchName) && notEmpty(this.searchPhone)){
-    //   this.data = tempDate.filter(x => {
-    //     return x.name_vietnamese.includes(this.searchName) && x.phone.includes(this.searchPhone);
-    //   });
-    // }
-    // else if(notEmpty(this.searchPhone) && notEmpty(this.searchBirthday)){
-    //   this.data = tempDate.filter(x => {
-    //     return x.phone.includes(this.searchPhone) &&  x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
-    //   });
-    // }
-    // else if(notEmpty(this.searchName) && notEmpty(this.searchBirthday)){
-    //   this.data = tempDate.filter(x => {
-    //     return x.name_vietnamese.includes(this.searchName) && x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
-    //   });
-    // }
-    // else if(notEmpty(this.searchName)){
-    //   console.log(this.searchName);
-    //
-    //   this.data = tempDate.filter(x => {
-    //     return x.name_vietnamese.includes(this.searchName);
-    //   });
-    // }
-    // else if(notEmpty(this.searchPhone)){
-    //   this.data = tempDate.filter(x => {
-    //     return x.phone.includes(this.searchPhone);
-    //   });
-    // }
-    // else if(notEmpty(this.searchBirthday)){
-    //   this.data = tempDate.filter(x => {
-    //     return  x.birthday.toLowerCase() == this.searchBirthday.toLowerCase().trim();
-    //   });
-    // }
-    // else {
-    //   this.data = JSON.parse(JSON.stringify(this.originalData));
-    // }
+    this.data = JSON.parse(JSON.stringify(this.originalData));
+
+    if (notEmpty(this.customerSearch.name)) {
+      this.data = this.data.filter(x => {
+        return x.name_vietnamese.includes(this.customerSearch.name);
+      });
+    }
+
+    if (notEmpty(this.customerSearch.phone)) {
+      this.data = this.data.filter(x => {
+        return x.phone.includes(this.customerSearch.phone);
+      });
+    }
+
+    if (notEmpty(this.customerSearch.birthday)) {
+      const birthday = this.datepipe.transform(this.customerSearch.birthday, 'dd-MM-yyyy');;
+      this.data = this.data.filter(x => {
+        return x.birthday.toLowerCase() == birthday.toLowerCase().trim();
+      });
+    }
   }
 
   navigateToAddCustomer() {

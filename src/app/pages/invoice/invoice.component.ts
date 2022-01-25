@@ -5,8 +5,11 @@ import { Router } from '@angular/router';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { DATE_CONSTANT, DEFAULT_BIRTHDAY_YEAR_RANGE, MOBILE_STATUSES, PEOPLE_JOBS } from '../../constant/common';
 import { getAge } from '../../utils/date.utils';
-import { notEmpty } from '../../utils/data.utils';
+import { isEmpty, notEmpty } from '../../utils/data.utils';
 import { ExcelService } from 'src/app/services/excel.service';
+import { Invoice } from '../../components/model/invoice';
+import { Customer } from '../../components/model/customer';
+import { Mobile } from '../../components/model/mobile';
 
 @Component({
   selector: 'app-invoice',
@@ -15,28 +18,21 @@ import { ExcelService } from 'src/app/services/excel.service';
 })
 export class InvoiceComponent implements OnInit {
   birthdayYearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
-  invoice: any = {};
-  customer: any = {};
+  invoice: Invoice;
+  customer: Customer = {
+    address: '', age: 0, birthday: undefined, id: 0, job: undefined, name_japanese: '', name_vietnamese: '', phone: ''
+  };
   selectedJobs = PEOPLE_JOBS[0];
   birthday: Date;
   jobs = PEOPLE_JOBS;
   selectedStatus = MOBILE_STATUSES[0];
-  mobiles = [
-    {
-      id: 0,
-      name: null,
-      imei: null,
-      color: null,
-      status: this.selectedStatus.value,
-      price: 0,
-    }
-  ];
+  mobiles: Mobile[] = [];
   status = MOBILE_STATUSES;
   customers = [];
   suggestCustomers: [];
   displaySuggestModal: boolean = false;
   displaySpinner: boolean = false;
-  selectedCustomer = null;
+  selectedCustomer: Customer = null;
   editData: any;
   sale_date: Date;
   customer_id = null;
@@ -52,30 +48,19 @@ export class InvoiceComponent implements OnInit {
   ngOnInit() {
     this.editData = window.history.state;
     if (this.editData.id) {
-      this.networkService.getInvoiceItems(this.editData.id).subscribe((invoiceDetail) => {
+      this.networkService.getInvoiceItems(this.editData.id).subscribe((invoiceDetail: Invoice) => {
+        console.log('>>>> invoiceDetail: ', invoiceDetail);
         if (notEmpty(invoiceDetail)) {
-          this.mobiles =invoiceDetail.items;
+          this.mobiles = invoiceDetail.mobiles;
           this.customer_id = invoiceDetail.customer_id;
           this.invoice_id = invoiceDetail.invoice_id;
-        }
-      });
-      this.networkService.getCustomers().subscribe(element => {
-        element.birthday = this.datePipe.transform(element.birthday, 'dd-MM-yyyy');
-        this.customers = element;
-        const tempData = JSON.parse(JSON.stringify(element));
-        var customer = tempData.filter(x => {
-          return x.id == this.customer_id;
-        });
-        this.customer = customer[0];
-        this.customer.birthday = this.datePipe.transform(customer[0].birthday, DATE_CONSTANT.TECHNICAL_DATE_FORMAT);
-        this.birthday = new Date(this.customer.birthday);
-        const job = this.jobs.find(x => x.value === this.customer.job);
-        if (job) {
-          this.selectedJobs = job;
-          this.customer.job = job.value;
-        } else {  
-          this.selectedJobs = PEOPLE_JOBS[0];
-          this.customer.job = null;
+          this.customer = invoiceDetail.customer;
+          this.birthday = new Date(this.customer.birthday);
+          this.selectedJobs = this.jobs.find(x => x.value === this.customer.job);
+          if (isEmpty(this.selectedJobs)) {
+            this.selectedJobs = PEOPLE_JOBS[0];
+            this.customer.job = this.selectedJobs.value;
+          }
         }
       });
     }
@@ -110,6 +95,7 @@ export class InvoiceComponent implements OnInit {
       color: null,
       status: this.selectedStatus.value,
       price: 0,
+      invoice_id: null,
     })
   }
 
@@ -129,7 +115,8 @@ export class InvoiceComponent implements OnInit {
     } else {
       this.customer.id = null;
       this.customer.address = null;
-      this.customer.job = null;
+      this.selectedJobs = PEOPLE_JOBS[0];
+      this.customer.job = this.selectedJobs.value;
       this.customer.phone = null;
       this.invoice.customer_id = 0;
     }
@@ -144,9 +131,10 @@ export class InvoiceComponent implements OnInit {
   }
 
   onSubmit() {
-    if(this.invoice_id){
+    if (this.invoice_id) {
       var date = new Date();
       this.invoice = {
+        id: this.invoice_id,
         invoice_id: this.invoice_id,
         customer: this.customer,
         customer_id: this.customer.id ? this.customer.id : -1,
@@ -159,8 +147,7 @@ export class InvoiceComponent implements OnInit {
         alert("Lưu Thành Công");
         this.router.navigate(['/invoices']);
       });
-    }
-    else{
+    } else {
       var date = new Date();
       this.invoice = {
         id: this.invoice_id,
@@ -187,7 +174,7 @@ export class InvoiceComponent implements OnInit {
     this.displaySuggestModal = false;
   }
 
-  removeMobile(index){
+  removeMobile(index) {
     this.mobiles.splice(index, 1);
   }
 
@@ -203,7 +190,7 @@ export class InvoiceComponent implements OnInit {
     }
   }
 
-  delete(){
+  delete() {
     let isDel = confirm("Bạn có chắc chắn muốn xóa đơn thu mua của '" + this.customer.name_vietnamese + "' không?");
     if (isDel == true) {
       this.networkService.deleteInvoice(this.editData.id).subscribe(
@@ -233,7 +220,7 @@ export class InvoiceComponent implements OnInit {
         合計: x.price
       }
     })
-    this.excelService.exportAsExcelFileFormat(data, this.customer,  `${this.customer.name_vietnamese}`, this.datePipe.transform(this.editData.sale_date, DATE_CONSTANT.TECHNICAL_DATE_FORMAT), this.totalMoney);   
+    this.excelService.exportAsExcelFileFormat(data, this.customer, `${this.customer.name_vietnamese}`, this.datePipe.transform(this.editData.sale_date, DATE_CONSTANT.TECHNICAL_DATE_FORMAT), this.totalMoney);
   }
 
 }

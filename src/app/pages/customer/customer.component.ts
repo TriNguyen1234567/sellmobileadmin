@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { DATE_CONSTANT, DEFAULT_BIRTHDAY_YEAR_RANGE, PEOPLE_JOBS } from '../../constant/common';
 import { getAge } from '../../utils/date.utils';
+import { Customer } from '../../components/model/customer';
 
 @Component({
   selector: 'app-customer',
@@ -67,13 +68,8 @@ export class CustomerComponent implements OnInit {
   }
 
   onSubmit() {
-    var data = [];
-    Object.keys(this.customer).forEach(x => {
-      data.push(this.customer[x]);
-    });
-
     if (this.customer.id) {
-      this.networkserviceService.putCustomer(data).subscribe(x => {
+      this.networkserviceService.putCustomer(this.customer as Customer).subscribe(x => {
           alert("Lưu Thành Công");
           this.router.navigateByUrl('customers')
         },
@@ -83,9 +79,9 @@ export class CustomerComponent implements OnInit {
 
         });
     } else {
-      this.networkserviceService.postCustomer(data).subscribe(x => {
+      this.networkserviceService.postCustomer(this.customer as Customer).subscribe(x => {
           alert("Lưu Thành Công");
-          this.router.navigateByUrl('customers')  
+          this.router.navigateByUrl('customers')
         },
         error => {
           console.log("Error", error);

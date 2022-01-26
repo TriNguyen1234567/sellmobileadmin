@@ -1,3 +1,5 @@
+import { User } from '../components/model/user';
+
 export const enum DATE_CONSTANT {
   ORIGINAL_DATE_FORMAT = 'dd-MM-yyyy',
   TECHNICAL_DATE_FORMAT = 'yyyy-MM-dd'
@@ -31,4 +33,25 @@ export const PEOPLE_JOBS = [
 export const MOBILE_STATUSES = [
   {label: '新品', value: DEVICE_STATUS.NEW},
   {label: '中古', value: DEVICE_STATUS.USED}
+]
+
+export const STATISTICS_MONTH_LIMIT = 5;
+export const STATISTICS_DATE_LIMIT = 5;
+
+export const enum USER_ROLE {
+  ADMIN = 'ADMIN',
+  EMPLOYEE = 'EMPLOYEE'
+}
+
+export const USERS: User[] = [
+  {
+    username: 'admin',
+    password: '123456',
+    role: USER_ROLE.ADMIN
+  },
+  {
+    username: 'employee',
+    password: '123456',
+    role: USER_ROLE.EMPLOYEE
+  }
 ]

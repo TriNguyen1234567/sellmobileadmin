@@ -1,4 +1,7 @@
 import { Component, OnInit } from "@angular/core";
+import { notEmpty } from '../../utils/data.utils';
+import { User } from '../model/user';
+import { USER_ROLE, USERS } from '../../constant/common';
 
 declare interface RouteInfo {
   path: string;
@@ -164,7 +167,15 @@ export class SidebarComponent implements OnInit {
 
   ngOnInit() {
     this.menuItems = ROUTES.filter(menuItem => menuItem);
-    this.webThuMuaMenuItems = WEB_THU_MUA_ROUTES.filter(menuItem => menuItem);
+    this.webThuMuaMenuItems = WEB_THU_MUA_ROUTES.filter(menuItem => {
+      let userData = localStorage.getItem('user');
+      let user: User = null;
+      if (notEmpty(userData)) {
+        user = JSON.parse(userData);
+        return menuItem.path === '/statistics' && user.role == USER_ROLE.EMPLOYEE ? false : menuItem;
+      }
+      return menuItem;
+    });
   }
 
   isMobileMenu() {

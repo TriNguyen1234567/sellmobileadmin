@@ -21,6 +21,7 @@ import { OrdersComponent } from "src/app/pages/orders/orders.component";
 import { OrdersCompletedComponent } from "src/app/pages/orders-completed/orders-completed.component";
 import { StatisticsComponent } from "src/app/pages/statistics/statistics.component";
 import { DevicesComponent } from "src/app/pages/devices/devices.component";
+import { RoleBaseGuard } from '../../services/role-base.guard';
 
 export const AdminLayoutRoutes: Routes = [
   { path: "dashboard", component: DashboardComponent },
@@ -42,6 +43,6 @@ export const AdminLayoutRoutes: Routes = [
    { path: "mobiles", component: MobilesComponent},
    { path: "orders", component: OrdersComponent},
    { path: "ordersComplete", component: OrdersCompletedComponent},
-   { path: "statistics", component:StatisticsComponent},
+   { path: "statistics", component:StatisticsComponent, canActivate: [RoleBaseGuard]},
    { path: "devices", component:DevicesComponent}
 ];

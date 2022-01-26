@@ -1,104 +1,128 @@
 <div class=" content">
-    <div class=" row">
-        <div class=" col-md-12">
-            <div class=" card">
-                <div class=" card-header">
-                    <h4 class=" card-title" style="color: orangered; font-weight: bold;">QUẢN LÝ THU CHI
-                    </h4>
-                </div>
-                <div class=" card-body">
-                    <div class="row" style="margin: 20px;">
-                        <label style="margin: 10px;"> Thời gian</label>
-                        <p-dropdown [options]="types" [(ngModel)]="selectedType" (ngModelChange)="typeChange()"
-                            optionLabel="label" optionValue="value" required [ngModelOptions]="{standalone: true}">
-                        </p-dropdown>
-                        <label style="margin: 10px;"> Từ </label>
-                        <p-calendar [styleClass]="'birthday-calendar'" (ngModelChange)="fromDateChange($event)" placeholder="Ngày" [(ngModel)]="fromDate"
-                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
-                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
-                        </p-calendar>
-                        <label style="margin: 10px;"> Đến </label>
-                        <p-calendar [styleClass]="'birthday-calendar'" placeholder="Ngày" [(ngModel)]="toDate"
-                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}" [minDate]="minToDate" [maxDate]="maxToDate"
-                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
-                        </p-calendar>
-                    </div>
-                    <div class="row" style="margin: 20px;">
-                        <div class="text-center"><button (click)="search()" type="button" class="btn btn-primary" [disabled]="fromDate == null || toDate == null">
-                            Search</button></div>
-                    </div>
-                    <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Danh sách nhập
-                    </h4>
-                    <p-table dataKey="invoices" editMode="row" #tt [value]="invoices" [paginator]="true"
-                        [rows]="20" [tableStyle]="{'table-layout':'auto'}">
-
-                        <ng-template pTemplate="header" let-columns class=" text-primary">
-                            <tr>
-                                <th *ngIf="selectedType.value==='month'">Tháng</th>
-                                <th *ngIf="selectedType.value==='day'">Ngày</th>
-                                <th>Tổng số máy</th>
-                                <th>Tổng Số Tiền</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
-                            let-editing="editing" let-ri="rowIndex">
-                            <tr [pEditableRow]="rowData">
-                                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
-                                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
-                                <td>{{rowData.quantity}}</td>
-                                <td>{{rowData.total_money}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Danh sách xuất
-                    </h4>
-                    <p-table dataKey="orderInvoices" editMode="row" #tt [value]="orderInvoices" [paginator]="true"
-                        [rows]="20" [tableStyle]="{'table-layout':'auto'}">
-
-                        <ng-template pTemplate="header" let-columns class=" text-primary">
-                            <tr>
-                                <th *ngIf="selectedType.value==='month'">Tháng</th>
-                                <th *ngIf="selectedType.value==='day'">Ngày</th>
-                                <th>Tổng số máy</th>
-                                <th>Tổng Số Tiền</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
-                            let-editing="editing" let-ri="rowIndex">
-                            <tr [pEditableRow]="rowData">
-                                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
-                                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
-                                <td>{{rowData.quantity}}</td>
-                                <td>{{rowData.total_money}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Thống kê
-                    </h4>
-                    <p-table dataKey="profits" editMode="row" #tt [value]="profits" [paginator]="true"
-                        [rows]="20" [tableStyle]="{'table-layout':'auto'}">
-
-                        <ng-template pTemplate="header" let-columns class=" text-primary">
-                            <tr>
-                                <th *ngIf="selectedType.value==='month'">Tháng</th>
-                                <th *ngIf="selectedType.value==='day'">Ngày</th>
-                                <th>Lợi Nhuận</th>
-                            </tr>
-                        </ng-template>
-                        <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
-                            let-editing="editing" let-ri="rowIndex">
-                            <tr [pEditableRow]="rowData">
-                                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
-                                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
-                                <td>{{rowData.profit}}</td>
-                            </tr>
-                        </ng-template>
-                    </p-table>
-                    <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Tổng Lợi Nhuận: {{totalProfit}}
-                    </h4>
-                </div>
-            </div>
+  <div class=" row">
+    <div class=" col-md-12">
+      <div class=" card">
+        <div class=" card-header">
+          <h4 class=" card-title" style="color: orangered; font-weight: bold;">QUẢN LÝ THU CHI
+          </h4>
         </div>
+        <div class=" card-body">
+          <div class="row" style="margin: 20px;">
+            <div class="col-4 col-md-4 text-center form-inline">
+              <div class="form-group">
+                <label style="margin-right: 10px;">Thời gian: </label>
+                <p-dropdown [options]="types" [(ngModel)]="selectedType" (ngModelChange)="onTypeChange($event)"
+                            [styleClass]="'statistic-type form-control'"
+                            optionLabel="label" optionValue="value" required [ngModelOptions]="{standalone: true}"
+                >
+                </p-dropdown>
+              </div>
+            </div>
+            <div class="col-3 col-md-3 text-center form-inline">
+              <div class="form-group">
+                <p-calendar [styleClass]="'birthday-calendar'"
+                            [inputStyleClass]="'form-control'"
+                            placeholder="Từ Ngày"
+                            [(ngModel)]="statisticFilter.from_date"
+                            (ngModelChange)="onChangeFromDate($event)"
+                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
+                            [showButtonBar]="true"
+                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col-3 col-md-3 text-center form-inline">
+              <div class="form-group">
+                <p-calendar [styleClass]="'birthday-calendar'" placeholder="Đến Ngày"
+                            [inputStyleClass]="'form-control'"
+                            [(ngModel)]="statisticFilter.to_date"
+                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
+                            [showButtonBar]="true"
+                            [defaultDate]="minToDate"
+                            [minDate]="minToDate"
+                            [maxDate]="maxToDate"
+                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+                </p-calendar>
+              </div>
+            </div>
+            <div class="col-2 col-md-2">
+              <button type="button" pButton icon="pi pi-search" iconPos="left" label="Tìm Kiếm"
+                      (click)="onSearch($event)" [disabled]="statisticFilter.from_date == null || statisticFilter.to_date == null || statisticFilter.from_date > statisticFilter.to_date"
+                      class="ui-button-info float-right"></button>
+            </div>
+          </div>
+          <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Danh sách nhập
+          </h4>
+          <p-table dataKey="invoices" editMode="row" #tt [value]="invoices" [paginator]="true"
+                   [rows]="20" [tableStyle]="{'table-layout':'auto'}">
 
+            <ng-template pTemplate="header" let-columns class=" text-primary">
+              <tr>
+                <th *ngIf="selectedType.value==='month'">Tháng</th>
+                <th *ngIf="selectedType.value==='day'">Ngày</th>
+                <th>Tổng số máy</th>
+                <th>Tổng Số Tiền</th>
+              </tr>
+            </ng-template>
+            <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
+                         let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="rowData">
+                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
+                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
+                <td>{{rowData.quantity}}</td>
+                <td>{{rowData.total_money}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Danh sách xuất
+          </h4>
+          <p-table dataKey="orderInvoices" editMode="row" #tt [value]="orderInvoices" [paginator]="true"
+                   [rows]="20" [tableStyle]="{'table-layout':'auto'}">
+
+            <ng-template pTemplate="header" let-columns class=" text-primary">
+              <tr>
+                <th *ngIf="selectedType.value==='month'">Tháng</th>
+                <th *ngIf="selectedType.value==='day'">Ngày</th>
+                <th>Tổng số máy</th>
+                <th>Tổng Số Tiền</th>
+              </tr>
+            </ng-template>
+            <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
+                         let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="rowData">
+                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
+                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
+                <td>{{rowData.quantity}}</td>
+                <td>{{rowData.total_money}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Thống kê
+          </h4>
+          <p-table dataKey="profits" editMode="row" #tt [value]="profits" [paginator]="true"
+                   [rows]="20" [tableStyle]="{'table-layout':'auto'}">
+
+            <ng-template pTemplate="header" let-columns class=" text-primary">
+              <tr>
+                <th *ngIf="selectedType.value==='month'">Tháng</th>
+                <th *ngIf="selectedType.value==='day'">Ngày</th>
+                <th>Lợi Nhuận</th>
+              </tr>
+            </ng-template>
+            <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
+                         let-editing="editing" let-ri="rowIndex">
+              <tr [pEditableRow]="rowData">
+                <td *ngIf="selectedType.value=='month'">{{rowData.datemonth}}/{{rowData.dateyear}}</td>
+                <td *ngIf="selectedType.value=='day'">{{rowData.sale_date | date: dateFormat}}</td>
+                <td>{{rowData.profit}}</td>
+              </tr>
+            </ng-template>
+          </p-table>
+          <h4 class=" card-title" style="margin: 20px; font-weight: bold;">Tổng Lợi Nhuận: {{totalProfit}}
+          </h4>
+        </div>
+      </div>
     </div>
+
+  </div>
 </div>

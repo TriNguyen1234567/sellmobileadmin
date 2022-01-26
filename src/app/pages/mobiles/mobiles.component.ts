@@ -1,7 +1,8 @@
 import { DatePipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
-import { DEFAULT_BIRTHDAY_YEAR_RANGE } from 'src/app/constant/common';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
+import { notEmpty } from '../../utils/data.utils';
+import { Mobile } from '../../components/model/mobile';
 
 @Component({
   selector: 'app-mobiles',
@@ -10,14 +11,23 @@ import { NetworkserviceService } from 'src/app/services/networkservice.service';
 })
 export class MobilesComponent implements OnInit {
 
-  constructor(private networkService: NetworkserviceService, public datepipe: DatePipe) { }
   originalData = [];
   data = [];
   searchNameText = '';
   searchImeiText = '';
   listDevices = [];
   displayDetailModal: boolean = false;
-  birthdayYearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
+  mobileSearch: {
+    name: string,
+    imei: string
+  } = {
+    name: null,
+    imei: null
+  }
+
+  constructor(private networkService: NetworkserviceService, public datepipe: DatePipe) {
+  }
+
   ngOnInit() {
     this.getMobiles();
   }
@@ -30,12 +40,13 @@ export class MobilesComponent implements OnInit {
     })
   }
 
-  SearchChange() {
-    if (this.searchNameText == '' && this.searchImeiText == '') {
-      this.data = JSON.parse(JSON.stringify(this.originalData));
-    } else {
-      const tempDate = JSON.parse(JSON.stringify(this.originalData));
-      this.data = tempDate.filter(x => x.name.includes(this.searchNameText)  && x.imei.includes(this.searchImeiText));
+  onSearchMobiles(event) {
+    this.data = JSON.parse(JSON.stringify(this.originalData));
+    if (notEmpty(this.mobileSearch.name)) {
+      this.data = this.data.filter((x: Mobile) => x.name.includes(this.mobileSearch.name));
+    }
+    if (notEmpty(this.mobileSearch.imei)) {
+      this.data = this.data.filter((x: Mobile) => x.imei.includes(this.mobileSearch.imei));
     }
   }
 
@@ -51,6 +62,7 @@ export class MobilesComponent implements OnInit {
       this.listDevices.splice(index, 1);
     }
   }
+
   createOrder() {
     var date = new Date();
     const mobiles = this.listDevices.map(x => {

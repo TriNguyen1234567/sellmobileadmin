@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { DATE_CONSTANT, DEFAULT_BIRTHDAY_YEAR_RANGE } from 'src/app/constant/common';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { notEmpty } from 'src/app/utils/data.utils';
+import { isDate } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-orders-completed',
@@ -28,6 +29,14 @@ export class OrdersCompletedComponent implements OnInit {
   fromDate: Date;
   toDate: Date;
   yearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
+  orderCompletedSearch: {
+    from_date: Date | string,
+    to_date: Date | string
+  } = {
+    from_date: null,
+    to_date: null
+  }
+
   constructor(
     private networkService: NetworkserviceService, private router: Router, public datepipe: DatePipe) {
   }
@@ -36,22 +45,18 @@ export class OrdersCompletedComponent implements OnInit {
     this.getOrdersCompleted();
   }
 
-  getOrdersCompleted () {
+  getOrdersCompleted() {
     this.networkService.getOrdersCompleted().subscribe(val => {
-      this.originalData = val;
-      this.data = JSON.parse(JSON.stringify(this.originalData));
-    }
-  )
+        this.originalData = val;
+        this.data = JSON.parse(JSON.stringify(this.originalData));
+      }
+    )
   }
 
   onShowDetail(event, rowData) {
     if (notEmpty(rowData)) {
       this.order = rowData;
-      console.log(rowData.id);
-      
       this.networkService.getOrderDetail(rowData.id).subscribe((orderDetail) => {
-        console.log(orderDetail);
-        
         this.displayDetailModal = true;
         if (notEmpty(orderDetail)) {
           this.listDevices = orderDetail;
@@ -66,37 +71,18 @@ export class OrdersCompletedComponent implements OnInit {
   onDeSelectDevice(event) {
   }
 
-  SearchChange() {
-    if (this.searchText == '') {
-      this.data = JSON.parse(JSON.stringify(this.originalData));
-    } else {
-      const tempDate = JSON.parse(JSON.stringify(this.originalData));
-      this.data = tempDate.filter(x => {
-        return x.name_vietnamese.includes(this.searchText) || x.sale_date == this.searchText;
+  onSearchOrderCompleted = (event) => {
+    this.data = JSON.parse(JSON.stringify(this.originalData));
+    if (notEmpty(this.orderCompletedSearch.from_date) && isDate(this.orderCompletedSearch.from_date)) {
+      this.data = this.data.filter((x: any) => {
+        return new Date(x.sale_date) >= new Date(this.orderCompletedSearch.from_date);
       });
     }
-  }
-
-  dateChange() {
-    this.data = this.originalData.filter(x => {
-      var date = new Date(x.sale_date);
-      if (this.fromDate && !this.toDate) {
-        var fromDate = new Date(this.fromDate);
-        return date >= fromDate;
-      }
-      if (this.toDate && !this.fromDate) {
-        var toDate = new Date(this.toDate);
-        return date <= toDate;
-      }
-
-      if (this.toDate && this.fromDate) {
-        var toDate = new Date(this.toDate);
-        var fromDate = new Date(this.fromDate);
-        return date >= fromDate && date <= toDate;
-      }
-
-    });
-
+    if (notEmpty(this.orderCompletedSearch.to_date) && isDate(this.orderCompletedSearch.to_date)) {
+      this.data = this.data.filter((x: any) => {
+        return new Date(x.sale_date) <= new Date(this.orderCompletedSearch.to_date);
+      });
+    }
   }
 
 }

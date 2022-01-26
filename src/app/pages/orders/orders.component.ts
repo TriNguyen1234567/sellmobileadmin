@@ -4,6 +4,8 @@ import { Router } from '@angular/router';
 import { DATE_CONSTANT, DEFAULT_BIRTHDAY_YEAR_RANGE } from 'src/app/constant/common';
 import { NetworkserviceService } from 'src/app/services/networkservice.service';
 import { notEmpty } from 'src/app/utils/data.utils';
+import { OrderInvoice } from '../../components/model/order-invoice';
+import { isDate } from '../../utils/date.utils';
 
 @Component({
   selector: 'app-orders',
@@ -22,6 +24,14 @@ export class OrdersComponent implements OnInit {
   fromDate: Date;
   toDate: Date;
   yearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
+  orderSearch: {
+    from_date: Date,
+    to_date: Date
+  } = {
+    from_date: null,
+    to_date: null
+  }
+
   constructor(
     private networkService: NetworkserviceService, private router: Router, public datepipe: DatePipe) {
   }
@@ -32,20 +42,16 @@ export class OrdersComponent implements OnInit {
 
   getOrdersPending() {
     this.networkService.getOrdersPending().subscribe(val => {
-      this.originalData = val;
-      this.data = JSON.parse(JSON.stringify(this.originalData));
-    }
+        this.originalData = val;
+        this.data = JSON.parse(JSON.stringify(this.originalData));
+      }
     )
   }
 
   onShowDetail(event, rowData) {
     if (notEmpty(rowData)) {
       this.order = rowData;
-      console.log(rowData.id);
-
       this.networkService.getOrderDetail(rowData.id).subscribe((orderDetail) => {
-        console.log(orderDetail);
-
         this.displayDetailModal = true;
         if (notEmpty(orderDetail)) {
           this.listDevices = orderDetail;
@@ -55,8 +61,6 @@ export class OrdersComponent implements OnInit {
   }
 
   processOrder() {
-    console.log(this.listDevices);
-
     const mobiles = this.listDevices.map(x => {
       return {
         id: x.mobileid,
@@ -68,37 +72,28 @@ export class OrdersComponent implements OnInit {
       mobiles,
       id: this.order.id, sale_date: this.order.sale_date, total_money, quantity: this.order.quantity
     }
-    console.log(order);
+    
     this.networkService.putOrder(order).subscribe(val => {
       alert("Lưu Thành Công");
-      console.log(order);
-      console.log(val);
       this.getOrdersPending();
       this.displayDetailModal = false;
     });
 
   }
 
-  dateChange() {
-    this.data = this.originalData.filter(x => {
-      var date = new Date(x.sale_date);
-      if (this.fromDate && !this.toDate) {
-        var fromDate = new Date(this.fromDate);
-        return date >= fromDate;
-      }
-      if (this.toDate && !this.fromDate) {
-        var toDate = new Date(this.toDate);
-        return date <= toDate;
-      }
+  onSearchOrder = (event) => {
+    this.data = JSON.parse(JSON.stringify(this.originalData));
+    if (notEmpty(this.orderSearch.from_date) && isDate(this.orderSearch.from_date)) {
+      this.data = this.data.filter((x: OrderInvoice) => {
+        return new Date(x.sale_date) >= new Date(this.orderSearch.from_date)
+      });
+    }
 
-      if (this.toDate && this.fromDate) {
-        var toDate = new Date(this.toDate);
-        var fromDate = new Date(this.fromDate);
-        return date >= fromDate && date <= toDate;
-      }
-
-    });
-
+    if (notEmpty(this.orderSearch.to_date) && isDate(this.orderSearch.to_date)) {
+      this.data = this.data.filter((x: OrderInvoice) => {
+        return new Date(x.sale_date) <= new Date(this.orderSearch.to_date)
+      });
+    }
   }
 
 }

@@ -40,6 +40,7 @@ import { OrdersCompletedComponent } from "src/app/pages/orders-completed/orders-
 import { StatisticsComponent } from "src/app/pages/statistics/statistics.component";
 import { ExcelService } from "src/app/services/excel.service";
 import { DevicesComponent } from "src/app/pages/devices/devices.component";
+import { AuthService } from '../../services/auth.service';
 @NgModule({
   imports: [
     CommonModule,
@@ -84,7 +85,8 @@ import { DevicesComponent } from "src/app/pages/devices/devices.component";
     DatePipe,
     JobTitlePipe,
     DeviceStatusPipe,
-    ExcelService
+    ExcelService,
+    AuthService
   ]
 })
 export class AdminLayoutModule { }

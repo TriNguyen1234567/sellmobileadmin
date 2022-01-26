@@ -18,7 +18,9 @@ import { Mobile } from '../../components/model/mobile';
 })
 export class InvoiceComponent implements OnInit {
   birthdayYearRange = DEFAULT_BIRTHDAY_YEAR_RANGE;
-  invoice: Invoice;
+  invoice: Invoice = {
+    customer_id: 0, id: 0, quantity: 0, sale_date: undefined, total_money: 0
+  };
   customer: Customer = {
     address: '', age: 0, birthday: undefined, id: 0, job: undefined, name_japanese: '', name_vietnamese: '', phone: ''
   };
@@ -49,7 +51,6 @@ export class InvoiceComponent implements OnInit {
     this.editData = window.history.state;
     if (this.editData.id) {
       this.networkService.getInvoiceItems(this.editData.id).subscribe((invoiceDetail: Invoice) => {
-        console.log('>>>> invoiceDetail: ', invoiceDetail);
         if (notEmpty(invoiceDetail)) {
           this.mobiles = invoiceDetail.mobiles;
           this.customer_id = invoiceDetail.customer_id;
@@ -73,18 +74,20 @@ export class InvoiceComponent implements OnInit {
   onChangeBirthday() {
     this.customer.birthday = this.datePipe.transform(this.birthday, DATE_CONSTANT.TECHNICAL_DATE_FORMAT);
     this.customer.age = getAge(this.birthday);
-    this.displaySpinner = true;
-    this.networkService.searchCustomers({birthday: this.customer.birthday})
-      .subscribe(result => {
-        if (result !== null && result.length > 0) {
-          this.suggestCustomers = result;
-          this.displaySuggestModal = true;
-        } else {
-          // Fill with null mean clear
-          this.autofillCustomer(null);
-        }
-        this.displaySpinner = false;
-      })
+    if (notEmpty(this.customer.birthday)) {
+      this.displaySpinner = true;
+      this.networkService.searchCustomers({birthday: this.customer.birthday})
+        .subscribe(result => {
+          if (result !== null && result.length > 0) {
+            this.suggestCustomers = result;
+            this.displaySuggestModal = true;
+          } else {
+            // Fill with null mean clear
+            this.autofillCustomer(null);
+          }
+          this.displaySpinner = false;
+        })
+    }
   }
 
   addMobile() {

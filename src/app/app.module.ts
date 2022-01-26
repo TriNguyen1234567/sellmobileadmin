@@ -22,6 +22,7 @@ import { CustomerComponent } from './pages/customer/customer.component';
 import { InvoicesComponent } from './pages/invoices/invoices.component';
 import { InvoiceComponent } from './pages/invoice/invoice.component';
 import { DevicesComponent } from './pages/devices/devices.component';
+import { AuthService } from './services/auth.service';
 
 
 @NgModule({
@@ -39,7 +40,9 @@ import { DevicesComponent } from './pages/devices/devices.component';
     ToastrModule.forRoot()
   ],
   declarations: [AppComponent, AdminLayoutComponent, AuthLayoutComponent,LoginComponent],
-  providers: [],
+  providers: [
+    AuthService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule {}

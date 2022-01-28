@@ -7,17 +7,16 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row order-search">
-            <div class="col-4 col-md-4 text-center">
-              <p-calendar [inputStyleClass]="'form-control'" [styleClass]="'order-date-calendar'" placeholder="Từ Ngày"
+          <div class="row filter-input-group order-search">
+            <div class="col-12 col-md-12 form-inline">
+              <p-calendar [inputStyleClass]="'form-control'" [styleClass]="'my-calendar'" placeholder="Từ Ngày"
                           [(ngModel)]="orderSearch.from_date"
                           dateFormat="dd-mm-yy" (onClickOutside)="onSearchOrder($event)"
                           (ngModelChange)="onSearchOrder($event)" [ngModelOptions]="{standalone: true}"
                           [monthNavigator]="true" [showButtonBar]="true" [yearNavigator]="true" [yearRange]="yearRange">
               </p-calendar>
-            </div>
-            <div class="col-4 col-md-4 text-center">
-              <p-calendar [inputStyleClass]="'form-control'" [styleClass]="'order-date-calendar'" placeholder="Đến Ngày"
+
+              <p-calendar [inputStyleClass]="'form-control'" [styleClass]="'my-calendar'" placeholder="Đến Ngày"
                           [(ngModel)]="orderSearch.to_date"
                           dateFormat="dd-mm-yy" (onClickOutside)="onSearchOrder($event)"
                           (ngModelChange)="onSearchOrder($event)" [ngModelOptions]="{standalone: true}"

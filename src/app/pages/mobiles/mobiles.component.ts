@@ -71,7 +71,7 @@ export class MobilesComponent implements OnInit {
         salePrice: x['salePrice']
       };
     });
-    const total_money = mobiles.map(mobile => mobile['salePrice']).reduce((a, b) => a + b, 0)
+    const total_money = mobiles.map(mobile => mobile['salePrice']).reduce((a, b) => +a + +b, 0)
     const order = {
       mobiles,
       sale_date: this.datepipe.transform(date, 'yyyy-MM-dd'), total_money, quantity: mobiles.length

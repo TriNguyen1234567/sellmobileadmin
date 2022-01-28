@@ -7,21 +7,18 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row customer-search">
-            <div class="col-3 col-md-3 text-center">
-              <input style="margin: 15px; width: 90%;" type="text" placeholder="Tên Tiếng Việt"
+          <div class="row filter-input-group customer-search">
+            <div class="col-9 col-md-9 form-inline">
+              <input type="text" placeholder="Tên Tiếng Việt"
                      [(ngModel)]="customerSearch.name" required id="searchName" (keydown.enter)="onSearchCustomer($event)"
-                     name="searchName" class=" form-control" />
-            </div>
-            <div class="col-3 col-md-3 text-center">
-              <input style="margin: 15px; width: 90%;" type="text" placeholder="Số Điện Thoại"
+                     name="searchName" class="filter-text form-control" />
+              <input type="text" placeholder="Số Điện Thoại"
                      [(ngModel)]="customerSearch.phone" required id="searchPhone" (keydown.enter)="onSearchCustomer($event)"
-                     name="searchPhone" class=" form-control" />
-            </div>
-            <div class="col-3 col-md-3 text-center">
+                     name="searchPhone" class="filter-text form-control" />
+
               <p-calendar
                 [inputStyleClass]="'form-control'"
-                [styleClass]="'birthday-calendar'"
+                [styleClass]="'my-calendar birthday-calendar'"
                 placeholder="Ngày Sinh"
                 [(ngModel)]="customerSearch.birthday"
                 dateFormat="dd-mm-yy"
@@ -35,8 +32,7 @@
               </p-calendar>
             </div>
             <div class="col-3 col-md-3">
-              <button type="button" pButton icon="pi pi-plus" iconPos="left" label="THÊM" (click)="navigateToAddCustomer()"
-                      style="margin-top: 20px;" class="ui-button-info float-right"></button>
+              <button type="button" pButton icon="pi pi-plus" iconPos="left" label="THÊM" (click)="navigateToAddCustomer()" class="ui-button-info float-right"></button>
             </div>
           </div>
 

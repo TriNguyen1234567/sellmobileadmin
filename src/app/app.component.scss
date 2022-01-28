@@ -6,4 +6,36 @@
       }
     }
   }
+  .filter-input-group {
+    margin-bottom: 1rem;
+  }
+  .form-inline {
+    .filter-text {
+      width: 150px;
+      margin-right: 2rem;
+      &.ui-dropdown,
+      .ui-dropdown-trigger {
+        border-radius: 0.4285rem;
+        &.form-control {
+          padding: 0.429em;
+        }
+      }
+    }
+  }
+  .my-calendar {
+    .ui-corner-all {
+      border-radius: 0.4285rem;
+    }
+
+    .ui-datepicker {
+      &:not(.ui-datepicker-inline) {
+        top: auto !important;
+      }
+    }
+
+    .form-control {
+      width: 150px;
+      margin-right: 2rem;
+    }
+  }
 }

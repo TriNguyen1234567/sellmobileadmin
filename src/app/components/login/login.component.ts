@@ -45,12 +45,14 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-
-    const user = this.authService.login(this.f.username.value, this.f.password.value);
+    const username = this.f.username.value.toString();
+    const password = this.f.password.value.toString();
+    const user = this.authService.login(username, password);
     if (notEmpty(user)) {
       this.router.navigate([this.returnUrl]);
       localStorage.setItem('auth', 'sucessful');
-      localStorage.setItem('user', JSON.stringify(user));
+      const {username, role} = user;
+      localStorage.setItem('user', JSON.stringify({username, role}));
     } else {
       this.errormes = "Username or Password is invalid"
     }

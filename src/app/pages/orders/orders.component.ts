@@ -67,12 +67,12 @@ export class OrdersComponent implements OnInit {
         price: x.price
       };
     });
-    const total_money = mobiles.map(mobile => mobile['price']).reduce((a, b) => a + b, 0)
+    const total_money = mobiles.map(mobile => mobile['price']).reduce((a, b) => +a + +b, 0)
     const order = {
       mobiles,
       id: this.order.id, sale_date: this.order.sale_date, total_money, quantity: this.order.quantity
     }
-    
+
     this.networkService.putOrder(order).subscribe(val => {
       alert("Lưu Thành Công");
       this.getOrdersPending();

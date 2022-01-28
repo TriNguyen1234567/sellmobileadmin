@@ -7,20 +7,17 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row">
-            <div class="col-4 col-md-4 text-center">
-              <input style="margin: 15px; width: 90%;" type="text"
-                     [(ngModel)]="mobileSearch.name" required id="searchNameText" (keydown.enter)="onSearchMobiles($event)"
-                     name="searchNameText" placeholder="Tên Máy" class=" form-control" />
-            </div>
-            <div class="col-4 col-md-4 text-center">
-              <input style="margin: 15px; width: 90%;" type="text"
-                     [(ngModel)]="mobileSearch.imei" required id="searchImeiText" (keydown.enter)="onSearchMobiles($event)"
-                     name="searchImeiText" placeholder="Số Imei" class=" form-control" />
-            </div>
-            <div class="col-4 col-md-4">
-              <button (click)="onShowDetail()" pButton iconPos="left" type="button" icon="pi pi-shopping-cart"
-                      style="margin-top: 20px;"  class="ui-button-info float-right"></button>
+          <div class="row filter-input-group">
+            <div class="col-12 col-md-12 form-inline">
+              <input type="text"
+                     [(ngModel)]="mobileSearch.name" required id="searchNameText"
+                     (keydown.enter)="onSearchMobiles($event)"
+                     name="searchNameText" placeholder="Tên Máy" class="filter-text form-control" />
+
+              <input type="text"
+                     [(ngModel)]="mobileSearch.imei" required id="searchImeiText"
+                     (keydown.enter)="onSearchMobiles($event)"
+                     name="searchImeiText" placeholder="Số Imei" class="filter-text form-control" />
             </div>
           </div>
 
@@ -29,7 +26,10 @@
 
             <ng-template pTemplate="header" let-columns class=" text-primary">
               <tr>
-                <th></th>
+                <th class="text-center">
+                  <button (click)="onShowDetail()" pButton iconPos="left" type="button" icon="pi pi-shopping-cart"
+                          class="ui-button-info"></button>
+                </th>
                 <th>Tên máy</th>
                 <th>Số IMEI</th>
                 <th>Màu sắc</th>
@@ -40,8 +40,8 @@
             <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"
                          let-editing="editing" let-ri="rowIndex">
               <tr [pEditableRow]="rowData">
-                <td><input type="checkbox" (select)="rowData.isSelected"
-                           (change)="rowData.isSelected = !rowData.isSelected"></td>
+                <td class="text-center"><input type="checkbox" (select)="rowData.isSelected"
+                                               (change)="rowData.isSelected = !rowData.isSelected"></td>
                 <td>{{rowData.name}}</td>
                 <td>{{rowData.imei}}</td>
                 <td>{{rowData.color}}</td>

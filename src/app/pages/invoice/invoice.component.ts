@@ -41,14 +41,15 @@ export class InvoiceComponent implements OnInit {
   invoice_id = 0;
 
   constructor(private formBuilder: FormBuilder,
-              private networkService: NetworkserviceService,
-              private router: Router,
-              public datePipe: DatePipe,
-              public excelService: ExcelService) {
+    private networkService: NetworkserviceService,
+    private router: Router,
+    public datePipe: DatePipe,
+    public excelService: ExcelService) {
   }
 
   ngOnInit() {
     this.editData = window.history.state;
+    this.sale_date = new Date();
     if (this.editData.id) {
       this.networkService.getInvoiceItems(this.editData.id).subscribe((invoiceDetail: Invoice) => {
         if (notEmpty(invoiceDetail)) {
@@ -58,6 +59,7 @@ export class InvoiceComponent implements OnInit {
           this.customer = invoiceDetail.customer;
           this.birthday = new Date(this.customer.birthday);
           this.selectedJobs = this.jobs.find(x => x.value === this.customer.job);
+          this.sale_date = new Date(invoiceDetail.sale_date);
           if (isEmpty(this.selectedJobs)) {
             this.selectedJobs = PEOPLE_JOBS[0];
             this.customer.job = this.selectedJobs.value;
@@ -76,7 +78,7 @@ export class InvoiceComponent implements OnInit {
     this.customer.age = getAge(this.birthday);
     if (notEmpty(this.customer.birthday)) {
       this.displaySpinner = true;
-      this.networkService.searchCustomers({birthday: this.customer.birthday})
+      this.networkService.searchCustomers({ birthday: this.customer.birthday })
         .subscribe(result => {
           if (result !== null && result.length > 0) {
             this.suggestCustomers = result;
@@ -130,36 +132,38 @@ export class InvoiceComponent implements OnInit {
   }
 
   get totalMoney() {
-    return this.mobiles.map(mobile => Number(mobile.price)).reduce((a, b) => a + b, 0);
+    return this.mobiles.filter(x => x.invoice_id != -1).map(mobile => Number(mobile.price)).reduce((a, b) => +a + +b, 0);
+  }
+
+  get getQuantity() {
+    return this.mobiles.filter(x => x.invoice_id != -1).length;
   }
 
   onSubmit() {
     if (this.invoice_id) {
-      var date = new Date();
       this.invoice = {
         id: this.invoice_id,
         invoice_id: this.invoice_id,
         customer: this.customer,
         customer_id: this.customer.id ? this.customer.id : -1,
         mobiles: this.mobiles,
-        sale_date: this.sale_date ? this.sale_date : this.datePipe.transform(date, 'yyyy-MM-dd'),
+        sale_date: this.datePipe.transform(this.sale_date, DATE_CONSTANT.TECHNICAL_DATE_FORMAT),
         total_money: this.totalMoney,
-        quantity: this.mobiles.length,
+        quantity: this.getQuantity
       };
       this.networkService.putInvoice(this.invoice).subscribe(val => {
         alert("Lưu Thành Công");
         this.router.navigate(['/invoices']);
       });
     } else {
-      var date = new Date();
       this.invoice = {
         id: this.invoice_id,
         customer: this.customer,
         customer_id: this.customer.id ? this.customer.id : -1,
         mobiles: this.mobiles,
-        sale_date: this.sale_date ? this.sale_date : this.datePipe.transform(date, 'yyyy-MM-dd'),
+        sale_date: this.datePipe.transform(this.sale_date, DATE_CONSTANT.TECHNICAL_DATE_FORMAT),
         total_money: this.totalMoney,
-        quantity: this.mobiles.length,
+        quantity: this.getQuantity
       };
       this.networkService.postInvoice(this.invoice).subscribe(val => {
         alert("Lưu Thành Công");
@@ -178,7 +182,12 @@ export class InvoiceComponent implements OnInit {
   }
 
   removeMobile(index) {
-    this.mobiles.splice(index, 1);
+    if (this.mobiles[index].invoice_id != null) {
+      this.mobiles[index].invoice_id = -1;
+    } else {
+      this.mobiles.splice(index, 1);
+    }
+
   }
 
   // Only Integer Numbers

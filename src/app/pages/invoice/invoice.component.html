@@ -128,7 +128,8 @@
                 <div class=" form-group">
                   <label> Số Điện Thoại</label> <label style="color: #ec250d;"> *</label>
                   <input class=" form-control" placeholder="Số Điện Thoại" type="text"
-                         [(ngModel)]="customer.phone" required id="phone" name="phone" #phoneValidate="ngModel" (keypress)="keyPressNumbers($event)" />
+                         [(ngModel)]="customer.phone" required id="phone" name="phone" #phoneValidate="ngModel"
+                         (keypress)="keyPressNumbers($event)" />
                   <div
                     *ngIf="phoneValidate.invalid && (phoneValidate.dirty || phoneValidate.touched)">
                     <label style="color: #ec250d;"> Số Điện Thoại is required.</label>
@@ -148,61 +149,87 @@
                 </div>
               </div>
             </div>
+            <div class=" row">
+              <div class=" col-md-6 pr-md-1">
+                <div class=" form-group">
+                  <label> Ngày Bán</label> <label style="color: #ec250d;"> *&nbsp;&nbsp;</label>
+                  <p-calendar
+                    [styleClass]="'birthday-calendar'"
+                    placeholder="Ngày Bán"
+                    [(ngModel)]="sale_date"
+                    [ngModelOptions]="{standalone: true}"
+                    [monthNavigator]="true"
+                    [yearNavigator]="true"
+                    [yearRange]="birthdayYearRange"
+                    dateFormat="dd-mm-yy"
+                    #birthdayValidate="ngModel"
+                  >
+                  </p-calendar>
+                  <br />
+                </div>
+              </div>
+            </div>
             <div>
               <div *ngFor="let mobile of mobiles; let i = index">
-                <div class=" row">
-                  <div class=" col-md-6 pr-md-1">
-                    <div class=" form-group">
-                      <label> Thông tin máy {{i + 1}}</label> <label style="color: #ec250d;"> *&nbsp;</label>
-                      <button class="btn" type="button" (click)="removeMobile(i)" style="background:rgba(224, 46, 22, 0.6)">Xóa</button>
+                <div *ngIf="mobile.invoice_id != -1">
+                  <div class=" row" >
+                    <div class=" col-md-6 pr-md-1">
+                      <div class=" form-group">
+                        <label> Thông tin máy {{i + 1}}</label> <label style="color: #ec250d;"> *&nbsp;</label>
+                        <button class="btn" type="button" (click)="removeMobile(i)"
+                                style="background:rgba(224, 46, 22, 0.6)">Xóa
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+  
+                  <div class=" row">
+                    <div class=" col-md-4 pr-md-1">
+                      <div class=" form-group">
+                        <label> Tên máy </label>
+                        <input class=" form-control" placeholder="Tên máy" [(ngModel)]="mobile.name"
+                               type="text" id="NameMobile{{i}}" name="NameMobile{{i}}"
+                               #NameMobile{{i}}="ngModel" />
+                      </div>
+                    </div>
+                    <div class=" col-md-4 pr-md-1">
+                      <div class=" form-group">
+                        <label> Số imei </label>
+                        <input class=" form-control" placeholder="Số imei" [(ngModel)]="mobile.imei"
+                               type="text" id="imei{{i}}" name="imei{{i}}" #imei{{i}}="ngModel" />
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class=" col-md-4 pr-md-1">
+                      <div class=" form-group">
+                        <label> Trạng thái &nbsp;</label>
+                        <p-dropdown [options]="status" (onChange)="onChangeStatus($event.value, i)"
+                                    [(ngModel)]="mobile.status" optionLabel="label" optionValue="value"
+                                    required [ngModelOptions]="{standalone: true}">
+                        </p-dropdown>
+                      </div>
+                    </div>
+                  </div>
+                  <div class=" row">
+                    <div class=" col-md-4 pr-md-1">
+                      <div class=" form-group">
+                        <label> Màu </label>
+                        <input class=" form-control" placeholder="Màu" [(ngModel)]="mobile.color"
+                               type="text" id="color{{i}}" name="color{{i}}" #color{{i}}="ngModel" />
+                      </div>
+                    </div>
+                    <div class=" col-md-4 pr-md-1">
+                      <div class=" form-group">
+                        <label> Giá </label>
+                        <input class=" form-control" placeholder="Giá" [(ngModel)]="mobile.price"
+                               type="text" id="price{{i}}" name="price{{i}}" #price{{i}}="ngModel"
+                               (keypress)="keyPressNumbers($event)" />
+                      </div>
                     </div>
                   </div>
                 </div>
-
-                <div class=" row">
-                  <div class=" col-md-4 pr-md-1">
-                    <div class=" form-group">
-                      <label> Tên máy </label>
-                      <input class=" form-control" placeholder="Tên máy" [(ngModel)]="mobile.name"
-                              type="text" id="NameMobile{{i}}" name="NameMobile{{i}}"
-                              #NameMobile{{i}}="ngModel" />
-                    </div>
-                  </div>
-                  <div class=" col-md-4 pr-md-1">
-                    <div class=" form-group">
-                      <label> Số imei </label>
-                      <input class=" form-control" placeholder="Số imei" [(ngModel)]="mobile.imei"
-                              type="text" id="imei{{i}}" name="imei{{i}}" #imei{{i}}="ngModel" />
-                    </div>
-                  </div>
-                </div>
-                <div class="row">
-                  <div class=" col-md-4 pr-md-1">
-                    <div class=" form-group">
-                      <label> Trạng thái &nbsp;</label>
-                      <p-dropdown [options]="status" (onChange)="onChangeStatus($event.value, i)"
-                                  [(ngModel)]="mobile.status" optionLabel="label" optionValue="value"
-                                  required [ngModelOptions]="{standalone: true}">
-                      </p-dropdown>
-                    </div>
-                  </div>
-                </div>
-                <div class=" row">
-                  <div class=" col-md-4 pr-md-1">
-                    <div class=" form-group">
-                      <label> Màu </label>
-                      <input class=" form-control" placeholder="Màu" [(ngModel)]="mobile.color"
-                              type="text" id="color{{i}}" name="color{{i}}" #color{{i}}="ngModel" />
-                    </div>
-                  </div>
-                  <div class=" col-md-4 pr-md-1">
-                    <div class=" form-group">
-                      <label> Giá </label>
-                      <input class=" form-control" placeholder="Giá" [(ngModel)]="mobile.price"
-                              type="text" id="price{{i}}" name="price{{i}}" #price{{i}}="ngModel" (keypress)="keyPressNumbers($event)"/>
-                    </div>
-                  </div>
-                </div>
+                
               </div>
             </div>
             <div class=" card-footer">
@@ -210,7 +237,7 @@
             </div>
             <div class=" card-footer">
               <div class=" col-md-6 pr-md-1">
-                <label> Tổng số máy : {{mobiles.length}}</label>
+                <label> Tổng số máy : {{getQuantity}}</label>
                 <br />
               </div>
             </div>
@@ -232,10 +259,12 @@
                       [disabled]="!createAppForm.valid || !selectedJobs || selectedJobs == '' || selectedJobs == null || !birthday">
                 Hủy
               </button>
-              <button *ngIf="editData.id" class=" btn " type="button" style="background:rgba(224, 46, 22, 0.6)" (click)="delete()">
+              <button *ngIf="editData.id" class=" btn " type="button" style="background:rgba(224, 46, 22, 0.6)"
+                      (click)="delete()">
                 Xóa
               </button>
-              <button *ngIf="editData.id" class=" btn " type="button" style="background:rgba(27, 202, 85, 0.6)" (click)="exportExcel()">
+              <button *ngIf="editData.id" class=" btn " type="button" style="background:rgba(27, 202, 85, 0.6)"
+                      (click)="exportExcel()">
                 Export
               </button>
             </div>

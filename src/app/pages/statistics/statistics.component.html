@@ -7,43 +7,35 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row" style="margin: 20px;">
-            <div class="col-4 col-md-4 text-center form-inline">
+          <div class="row filter-input-group">
+            <div class="col-10 col-md-10 form-inline">
               <div class="form-group">
                 <label style="margin-right: 10px;">Thời gian: </label>
                 <p-dropdown [options]="types" [(ngModel)]="selectedType" (ngModelChange)="onTypeChange($event)"
-                            [styleClass]="'statistic-type form-control'"
+                            [styleClass]="'filter-text statistic-type form-control'"
                             optionLabel="label" optionValue="value" required [ngModelOptions]="{standalone: true}"
                 >
                 </p-dropdown>
               </div>
-            </div>
-            <div class="col-3 col-md-3 text-center form-inline">
-              <div class="form-group">
-                <p-calendar [styleClass]="'birthday-calendar'"
-                            [inputStyleClass]="'form-control'"
-                            placeholder="Từ Ngày"
-                            [(ngModel)]="statisticFilter.from_date"
-                            (ngModelChange)="onChangeFromDate($event)"
-                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
-                            [showButtonBar]="true"
-                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
-                </p-calendar>
-              </div>
-            </div>
-            <div class="col-3 col-md-3 text-center form-inline">
-              <div class="form-group">
-                <p-calendar [styleClass]="'birthday-calendar'" placeholder="Đến Ngày"
-                            [inputStyleClass]="'form-control'"
-                            [(ngModel)]="statisticFilter.to_date"
-                            dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
-                            [showButtonBar]="true"
-                            [defaultDate]="minToDate"
-                            [minDate]="minToDate"
-                            [maxDate]="maxToDate"
-                            [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
-                </p-calendar>
-              </div>
+              <p-calendar [styleClass]="'my-calendar birthday-calendar'"
+                          [inputStyleClass]="'form-control'"
+                          placeholder="Từ Ngày"
+                          [(ngModel)]="statisticFilter.from_date"
+                          (ngModelChange)="onChangeFromDate($event)"
+                          dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
+                          [showButtonBar]="true"
+                          [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+              </p-calendar>
+              <p-calendar [styleClass]="'my-calendar birthday-calendar'" placeholder="Đến Ngày"
+                          [inputStyleClass]="'form-control'"
+                          [(ngModel)]="statisticFilter.to_date"
+                          dateFormat="dd-mm-yy" [ngModelOptions]="{standalone: true}"
+                          [showButtonBar]="true"
+                          [defaultDate]="minToDate"
+                          [minDate]="minToDate"
+                          [maxDate]="maxToDate"
+                          [monthNavigator]="true" [yearNavigator]="true" [yearRange]="yearRange">
+              </p-calendar>
             </div>
             <div class="col-2 col-md-2">
               <button type="button" pButton icon="pi pi-search" iconPos="left" label="Tìm Kiếm"

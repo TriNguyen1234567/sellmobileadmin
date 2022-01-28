@@ -7,16 +7,15 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row invoice-search">
-            <div class="col-4 col-md-4 text-center">
-              <input style="margin: 15px; width: 90%;" type="text"
+          <div class="row filter-input-group invoice-search">
+            <div class="col-9 col-md-9 form-inline">
+              <input type="text"
                      [(ngModel)]="invoiceSearch.name" required id="searchNameText" (keydown.enter)="onSearchInvoices($event)"
-                     name="searchNameText" placeholder="Tên Tiếng Việt" class=" form-control"/>
-            </div>
-            <div class="col-4 col-md-4 text-center">
+                     name="searchNameText" placeholder="Tên Tiếng Việt" class="filter-text form-control"/>
+
               <p-calendar
                 [inputStyleClass]="'form-control'"
-                [styleClass]="'sale-date-calendar'"
+                [styleClass]="'my-calendar sale-date-calendar'"
                 placeholder="Ngày Bán"
                 [(ngModel)]="invoiceSearch.sale_date"
                 dateFormat="dd-mm-yy"
@@ -29,7 +28,7 @@
               >
               </p-calendar>
             </div>
-            <div class="col-4 col-md-4">
+            <div class="col-3 col-md-3">
               <button type="button" pButton icon="pi pi-plus" iconPos="left" label="THÊM" (click)="navigateToAddInvoice()"
                       style="margin-top: 20px;" class="ui-button-info float-right"></button>
             </div>

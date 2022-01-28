@@ -1,7 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { notEmpty } from '../../utils/data.utils';
 import { User } from '../model/user';
-import { USER_ROLE, USERS } from '../../constant/common';
+import { USER_ROLE } from '../../constant/common';
+import { Router } from '@angular/router';
 
 declare interface RouteInfo {
   path: string;
@@ -162,7 +163,9 @@ export class SidebarComponent implements OnInit {
   menuItems: any[];
   webThuMuaMenuItems: any[];
 
-  constructor() {
+  constructor(
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -176,6 +179,13 @@ export class SidebarComponent implements OnInit {
       }
       return menuItem;
     });
+  }
+
+  onLogout(event) {
+    event.preventDefault();
+    localStorage.removeItem('auth');
+    localStorage.removeItem('user');
+    this.router.navigate(['/login']);
   }
 
   isMobileMenu() {

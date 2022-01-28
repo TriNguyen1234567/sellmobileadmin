@@ -7,18 +7,17 @@
           </h4>
         </div>
         <div class=" card-body">
-          <div class="row">
-            <div class="col-3 col-md-3 text-center">
-              <input style="margin: 15px; width: 90%;" type="text" [(ngModel)]="deviceFilter.name" required id="searchNameText"
-                     placeholder="Tên Máy" (ngModelChange)="onSearchDevice($event)" class=" form-control" name="searchNameText" />
-            </div>
-            <div class="col-3 col-md-3 text-center">
-              <input style="margin: 15px; width: 90%;" type="text" [(ngModel)]="deviceFilter.imei" required id="searchImeiText"
-                     placeholder="IMEI" (ngModelChange)="onSearchDevice($event)" class=" form-control" name="searchImeiText" />
-            </div>
-            <div class="col-3 col-md-3 text-center">
-              <input style="margin: 15px; width: 90%;" [(ngModel)]="deviceFilter.customer_name" required id="searchCustomerNameText"
-                     placeholder="Người Bán" (ngModelChange)="onSearchDevice($event)" class=" form-control" name="searchImeiText" />
+          <div class="row filter-input-group">
+            <div class="col-12 col-md-12 form-inline">
+              <input type="text" [(ngModel)]="deviceFilter.name" required id="searchNameText"
+                     placeholder="Tên Máy" (ngModelChange)="onSearchDevice($event)" class="filter-text form-control"
+                     name="searchNameText" />
+              <input type="text" [(ngModel)]="deviceFilter.imei" required id="searchImeiText"
+                     placeholder="IMEI" (ngModelChange)="onSearchDevice($event)" class="filter-text form-control"
+                     name="searchImeiText" />
+              <input [(ngModel)]="deviceFilter.customer_name" required id="searchCustomerNameText"
+                     placeholder="Người Bán" (ngModelChange)="onSearchDevice($event)" class="filter-text form-control"
+                     name="searchImeiText" />
             </div>
           </div>
           <p-table dataKey="id" editMode="row" #tt [value]="data" [paginator]="true"

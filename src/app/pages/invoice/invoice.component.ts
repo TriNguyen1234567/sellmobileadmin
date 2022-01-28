@@ -213,17 +213,9 @@ export class InvoiceComponent implements OnInit {
   }
 
   exportExcel() {
-    const data = this.mobiles.map((x, index) => {
-      return {
-        NO: index + 1,
-        商品名: x.name,
-        単価: x.color,
-        状態: x.status,
-        IMEI: x.imei,
-        合計: x.price
-      }
-    })
-    this.excelService.exportAsExcelFileFormat(data, this.customer, `${this.customer.name_vietnamese}`, this.datePipe.transform(this.editData.sale_date, DATE_CONSTANT.TECHNICAL_DATE_FORMAT), this.totalMoney);
+    if (notEmpty(this.invoice_id) && this.invoice_id > 0) {
+      this.excelService.invoiceReport(this.invoice_id);
+    }
   }
 
 }

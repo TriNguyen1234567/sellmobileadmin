@@ -223,4 +223,10 @@ export class NetworkserviceService {
     const devicesURL = `${NETWORK.API.Devices}`;
     return this.httpClient.get<any>(devicesURL);
   }
+
+  getInvoiceReport = (id: number): any => {
+    return this.httpClient.get(`${NETWORK.API.Invoices}/report/${id}`, {
+      responseType: 'arraybuffer'
+    })
+  }
 }

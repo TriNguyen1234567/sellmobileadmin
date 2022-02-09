@@ -10,7 +10,7 @@
           <div class="row filter-input-group invoice-search">
             <div class="col-9 col-md-9 form-inline">
               <input type="text"
-                     [(ngModel)]="invoiceSearch.name" required id="searchNameText" (keydown.enter)="onSearchInvoices($event)"
+                     [(ngModel)]="invoiceSearch.name" required id="searchNameText" (keydown.enter)="onSearchInvoices($event)" (ngModelChange)="onSearchInvoices($event)"
                      name="searchNameText" placeholder="Tên Tiếng Việt" class="filter-text form-control"/>
 
               <p-calendar
@@ -41,11 +41,12 @@
               <tr>
                 <th></th>
                 <th>Tên Khách Bán</th>
-                <th>Ngày Bán</th>
+                <th pSortableColumn="sale_date" >Ngày Bán <p-sortIcon field="sale_date"></p-sortIcon> </th>
                 <th>Số Máy Bán</th>
                 <th>Tổng Số Tiền</th>
                 <th></th>
                 <th></th>
+
               </tr>
             </ng-template>
             <ng-template let-i="rowIndex" pTemplate="body" let-rowData let-columns="columns"

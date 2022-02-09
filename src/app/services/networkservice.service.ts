@@ -195,6 +195,16 @@ export class NetworkserviceService {
     return this.httpClient.get<any>(postInvoiceURL);
   }
 
+  updatePendingOrder(order, order_id: number) {
+    const updatePendingOrderUrl = `${NETWORK.API.OrderInvoices}/pending/${order_id}`;
+    return this.httpClient.put<any>(updatePendingOrderUrl, order);
+  }
+
+  cancelPendingOrder(order_id: number) {
+    const updatePendingOrderUrl = `${NETWORK.API.OrderInvoices}/pending/${order_id}`;
+    return this.httpClient.delete(updatePendingOrderUrl);
+  }
+
   getOrdersCompleted() {
     const postInvoiceURL = `${NETWORK.API.OrderInvoices}\\Completed`;
     return this.httpClient.get<any>(postInvoiceURL);

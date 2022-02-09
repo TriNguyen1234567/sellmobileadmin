@@ -30,7 +30,7 @@
             <ng-template pTemplate="header" let-columns class=" text-primary">
               <tr>
                 <th></th>
-                <th>Ngày Bán</th>
+                <th pSortableColumn="sale_date" >Ngày Bán <p-sortIcon field="sale_date"></p-sortIcon> </th>
                 <th>Số Máy Bán</th>
                 <th>Tổng Số Tiền</th>
                 <th></th>
@@ -65,6 +65,7 @@
             </div>
             <p-table
               [value]="listDevices"
+              [styleClass]="'my-scrollable-table'"
               dataKey="vin"
             >
               <ng-template pTemplate="header">

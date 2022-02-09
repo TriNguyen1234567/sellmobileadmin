@@ -10,10 +10,10 @@
           <div class="row filter-input-group customer-search">
             <div class="col-9 col-md-9 form-inline">
               <input type="text" placeholder="Tên Tiếng Việt"
-                     [(ngModel)]="customerSearch.name" required id="searchName" (keydown.enter)="onSearchCustomer($event)"
+                     [(ngModel)]="customerSearch.name" required id="searchName" (keydown.enter)="onSearchCustomer($event)" (ngModelChange)="onSearchCustomer($event)"
                      name="searchName" class="filter-text form-control" />
               <input type="text" placeholder="Số Điện Thoại"
-                     [(ngModel)]="customerSearch.phone" required id="searchPhone" (keydown.enter)="onSearchCustomer($event)"
+                     [(ngModel)]="customerSearch.phone" required id="searchPhone" (keydown.enter)="onSearchCustomer($event)" (ngModelChange)="onSearchCustomer($event)"
                      name="searchPhone" class="filter-text form-control" />
 
               <p-calendar

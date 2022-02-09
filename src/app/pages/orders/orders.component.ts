@@ -70,10 +70,10 @@ export class OrdersComponent implements OnInit {
     const total_money = mobiles.map(mobile => mobile['price']).reduce((a, b) => +a + +b, 0)
     const order = {
       mobiles,
-      id: this.order.id, sale_date: this.order.sale_date, total_money, quantity: this.order.quantity
+      id: this.order.id, sale_date: this.order.sale_date, total_money, quantity: mobiles.length
     }
 
-    this.networkService.putOrder(order).subscribe(val => {
+    this.networkService.updatePendingOrder(order, this.order.id).subscribe(val => {
       alert("Lưu Thành Công");
       this.getOrdersPending();
       this.displayDetailModal = false;
@@ -81,17 +81,41 @@ export class OrdersComponent implements OnInit {
 
   }
 
+  cancelOrder() {
+    this.networkService.cancelPendingOrder(this.order.id).subscribe((val) => {
+      alert("Hủy Đơn Hàng Thành Công");
+      this.getOrdersPending();
+      this.displayDetailModal = false;
+    })
+  }
+
+  onRemoveDevice = (device, event) => {
+    this.listDevices = this.listDevices.filter(x => {
+      return x.mobileid !== device.mobileid;
+    });
+  }
+
   onSearchOrder = (event) => {
     this.data = JSON.parse(JSON.stringify(this.originalData));
     if (notEmpty(this.orderSearch.from_date) && isDate(this.orderSearch.from_date)) {
       this.data = this.data.filter((x: OrderInvoice) => {
-        return new Date(x.sale_date) >= new Date(this.orderSearch.from_date)
+        const sent_date = new Date(x.sale_date);
+        sent_date.setHours(0, 0, 0, 0);
+        const from_date = new Date(this.orderSearch.from_date);
+        from_date.setHours(0, 0, 0, 0);
+        return sent_date >= from_date;
+        // return new Date(x.sale_date) >= new Date(this.orderSearch.from_date)
       });
     }
 
     if (notEmpty(this.orderSearch.to_date) && isDate(this.orderSearch.to_date)) {
       this.data = this.data.filter((x: OrderInvoice) => {
-        return new Date(x.sale_date) <= new Date(this.orderSearch.to_date)
+        const sent_date = new Date(x.sale_date);
+        sent_date.setHours(0, 0, 0, 0);
+        const to_date = new Date(this.orderSearch.to_date);
+        to_date.setHours(0, 0, 0, 0);
+        return sent_date <= to_date;
+        // return new Date(x.sale_date) <= new Date(this.orderSearch.to_date)
       });
     }
   }

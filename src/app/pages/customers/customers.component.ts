@@ -80,7 +80,7 @@ export class CustomersComponent implements OnInit {
 
     if (notEmpty(this.customerSearch.name)) {
       this.data = this.data.filter(x => {
-        return x.name_vietnamese.includes(this.customerSearch.name);
+        return x.name_vietnamese.toLowerCase().includes(this.customerSearch.name.toLowerCase());
       });
     }
 

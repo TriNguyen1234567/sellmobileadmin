@@ -54,6 +54,7 @@ export class OrdersCompletedComponent implements OnInit {
   }
 
   onShowDetail(event, rowData) {
+    this.listDevices = [];
     if (notEmpty(rowData)) {
       this.order = rowData;
       this.networkService.getOrderDetail(rowData.id).subscribe((orderDetail) => {
@@ -75,12 +76,20 @@ export class OrdersCompletedComponent implements OnInit {
     this.data = JSON.parse(JSON.stringify(this.originalData));
     if (notEmpty(this.orderCompletedSearch.from_date) && isDate(this.orderCompletedSearch.from_date)) {
       this.data = this.data.filter((x: any) => {
-        return new Date(x.sale_date) >= new Date(this.orderCompletedSearch.from_date);
+        const sent_date = new Date(x.sale_date);
+        sent_date.setHours(0, 0, 0, 0);
+        const from_date = new Date(this.orderCompletedSearch.from_date);
+        from_date.setHours(0, 0, 0, 0);
+        return sent_date >= from_date;
       });
     }
     if (notEmpty(this.orderCompletedSearch.to_date) && isDate(this.orderCompletedSearch.to_date)) {
       this.data = this.data.filter((x: any) => {
-        return new Date(x.sale_date) <= new Date(this.orderCompletedSearch.to_date);
+        const sent_date = new Date(x.sale_date);
+        sent_date.setHours(0, 0, 0, 0);
+        const to_date = new Date(this.orderCompletedSearch.to_date);
+        to_date.setHours(0, 0, 0, 0);
+        return sent_date <= to_date;
       });
     }
   }

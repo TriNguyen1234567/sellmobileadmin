@@ -88,7 +88,7 @@ export class InvoicesComponent implements OnInit {
     this.data = JSON.parse(JSON.stringify(this.originalData));
     if (notEmpty(this.invoiceSearch.name)) {
       this.data = this.data.filter(x => {
-        return x.name_vietnamese.includes(this.invoiceSearch.name)
+        return x.name_vietnamese.toLowerCase().includes(this.invoiceSearch.name.toLowerCase())
       });
     }
 

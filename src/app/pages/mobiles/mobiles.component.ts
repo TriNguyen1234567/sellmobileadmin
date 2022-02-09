@@ -43,10 +43,10 @@ export class MobilesComponent implements OnInit {
   onSearchMobiles(event) {
     this.data = JSON.parse(JSON.stringify(this.originalData));
     if (notEmpty(this.mobileSearch.name)) {
-      this.data = this.data.filter((x: Mobile) => x.name.includes(this.mobileSearch.name));
+      this.data = this.data.filter((x: Mobile) => x.name.toLowerCase().includes(this.mobileSearch.name.toLowerCase()));
     }
     if (notEmpty(this.mobileSearch.imei)) {
-      this.data = this.data.filter((x: Mobile) => x.imei.includes(this.mobileSearch.imei));
+      this.data = this.data.filter((x: Mobile) => x.imei.toLowerCase().includes(this.mobileSearch.imei.toLowerCase()));
     }
   }
 

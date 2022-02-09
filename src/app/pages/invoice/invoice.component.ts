@@ -64,6 +64,12 @@ export class InvoiceComponent implements OnInit {
             this.selectedJobs = PEOPLE_JOBS[0];
             this.customer.job = this.selectedJobs.value;
           }
+          this.mobiles.forEach(x => {
+            let status = this.status.find(y => x.status === y.value);
+            if (status) {
+              x.selectedStatus = status;
+            }
+          });
         }
       });
     }
@@ -99,6 +105,7 @@ export class InvoiceComponent implements OnInit {
       imei: null,
       color: null,
       status: this.selectedStatus.value,
+      selectedStatus: null,
       price: 0,
       invoice_id: null,
     })

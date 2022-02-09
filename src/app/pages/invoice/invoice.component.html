@@ -7,7 +7,7 @@
           <h4 class=" title" style="color: orangered; font-weight: bold;">ĐƠN THU MUA</h4>
         </div>
         <div class="card-body">
-          <form #createAppForm="ngForm" (ngSubmit)="onSubmit()" autocomplete="false" novalidate>
+          <form #createAppForm="ngForm" (keydown.enter)="$event.preventDefault()" (ngSubmit)="onSubmit()" autocomplete="true" novalidate>
             <div class=" row">
               <div class=" col-md-6 pr-md-1">
                 <div class=" form-group">
@@ -182,7 +182,7 @@
                       </div>
                     </div>
                   </div>
-  
+
                   <div class=" row">
                     <div class=" col-md-4 pr-md-1">
                       <div class=" form-group">
@@ -205,7 +205,7 @@
                       <div class=" form-group">
                         <label> Trạng thái &nbsp;</label>
                         <p-dropdown [options]="status" (onChange)="onChangeStatus($event.value, i)"
-                                    [(ngModel)]="mobile.status" optionLabel="label" optionValue="value"
+                                    [(ngModel)]="mobile.selectedStatus" optionLabel="label" optionValue="value" id="status{{i}}" name="status{{i}}" #status{{i}}="ngModel"
                                     required [ngModelOptions]="{standalone: true}">
                         </p-dropdown>
                       </div>
@@ -229,7 +229,7 @@
                     </div>
                   </div>
                 </div>
-                
+
               </div>
             </div>
             <div class=" card-footer">

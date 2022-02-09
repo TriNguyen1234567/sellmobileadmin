@@ -38,4 +38,11 @@
       margin-right: 2rem;
     }
   }
+
+  .my-scrollable-table {
+    .ui-table-wrapper {
+      max-height: 350px;
+      overflow: auto;
+    }
+  }
 }

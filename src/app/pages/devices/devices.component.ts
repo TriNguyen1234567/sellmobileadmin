@@ -51,18 +51,18 @@ export class DevicesComponent implements OnInit {
     this.data = JSON.parse(JSON.stringify(this.originalData));
     if (notEmpty(this.deviceFilter.name)) {
       this.data = this.data.filter(x => {
-        return x.name.includes(this.deviceFilter.name);
+        return x.name.toLowerCase().includes(this.deviceFilter.name.toLowerCase());
       });
     }
     if (notEmpty(this.deviceFilter.imei)) {
       this.data = this.data.filter(x => {
-        return x.imei.includes(this.deviceFilter.imei);
+        return x.imei.toLowerCase().includes(this.deviceFilter.imei.toLowerCase());
       });
     }
 
     if (notEmpty(this.deviceFilter.customer_name)) {
       this.data = this.data.filter(x => {
-        return x.name_vietnamese.includes(this.deviceFilter.customer_name);
+        return x.name_vietnamese.toLowerCase().includes(this.deviceFilter.customer_name.toLowerCase());
       });
     }
   }
